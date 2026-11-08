@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ligeira Logística Urbana · Case de Ensino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,750;1,6..72,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F4F1;
+  --paper-2:#E7EAE4;
+  --ink:#1B2530;
+  --ink-2:#4A5561;
+  --rule:#C5CBC3;
+  --yellow:#F2B705;
+  --yellow-soft:#FBE7A6;
+  --green:#2F7A57;
+  --red:#B8432F;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --sans:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --measure:66ch;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:4rem}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:1.15rem;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+img{max-width:100%}
+
+/* ---------- barra superior ---------- */
+.top{position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;font-family:var(--sans);padding-top:env(safe-area-inset-top,0px)}
+.top-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:1.25rem;padding:.7rem 1.25rem;overflow-x:auto}
+.brand{font-weight:700;letter-spacing:.01em;white-space:nowrap;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.brand-dot{width:.7rem;height:.7rem;border-radius:50%;background:var(--yellow);display:inline-block}
+.top nav{display:flex;gap:1rem;font-size:.92rem;white-space:nowrap}
+.top nav a{text-decoration:none;opacity:.8;padding:.2rem 0;border-bottom:2px solid transparent}
+.top nav a[aria-current="page"]{opacity:1;border-bottom-color:var(--yellow)}
+.top nav span{opacity:.4}
+
+/* ---------- capa ---------- */
+.hero{position:relative;background:var(--ink) url("img/capa.jpg") center/cover no-repeat;color:#fff;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(27,37,48,.55),rgba(27,37,48,.92))}
+.hero svg.route{position:absolute;inset:0;width:100%;height:100%}
+.hero-in{position:relative;max-width:1180px;margin:0 auto;padding:clamp(4rem,12vw,9rem) 1.25rem clamp(3rem,8vw,6rem)}
+.kicker{font-family:var(--sans);font-size:.95rem;margin:0 0 1.5rem;opacity:.85;max-width:40ch}
+.hero h1{font-weight:750;font-size:clamp(3rem,9vw,7.2rem);line-height:.92;letter-spacing:-.02em;margin:0;max-width:11ch}
+.hero .question{font-style:italic;font-size:clamp(1.5rem,3.4vw,2.4rem);line-height:1.2;color:var(--yellow);margin:1.5rem 0 0;max-width:22ch}
+
+.route-line{stroke:var(--yellow);stroke-width:4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.route-stop{fill:var(--ink);stroke:var(--yellow);stroke-width:4}
+.street{stroke:rgba(255,255,255,.08);stroke-width:2}
+@media (prefers-reduced-motion:no-preference){
+  .route-line{stroke-dasharray:1800;stroke-dashoffset:1800;animation:draw 2.8s .3s ease-out forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+}
+
+/* ---------- texto corrido ---------- */
+.prose{max-width:var(--measure);margin:0 auto;padding:0 1.25rem}
+.prose p{margin:0 0 1.2em}
+.lede::first-letter{float:left;font-size:4.4em;line-height:.82;font-weight:750;padding:.05em .08em 0 0;color:var(--ink)}
+.section{padding:clamp(2.5rem,6vw,4.5rem) 0}
+.section + .section{border-top:1px solid var(--rule)}
+h2{font-weight:750;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.08;letter-spacing:-.01em;margin:0 0 .6em}
+h3{font-family:var(--sans);font-weight:700;font-size:1.15rem;margin:0 0 .4em}
+.pull{font-size:clamp(1.5rem,3vw,2rem);line-height:1.25;font-style:italic;border-left:6px solid var(--yellow);padding:.2em 0 .2em 1rem;margin:2rem 0}
+.note{font-family:var(--sans);font-size:.9rem;color:var(--ink-2)}
+
+/* ---------- lista de capítulos como rota ---------- */
+.chapters{list-style:none;margin:2rem 0 0;padding:0;position:relative}
+.chapters::before{content:"";position:absolute;left:.72rem;top:.9rem;bottom:.9rem;width:4px;background:var(--rule)}
+.chapters li{position:relative;padding:0 0 1.4rem 3rem}
+.chapters li::before{content:"";position:absolute;left:0;top:.35rem;width:1.1rem;height:1.1rem;border-radius:50%;background:var(--paper);border:4px solid var(--rule)}
+.chapters li.open::before{background:var(--yellow);border-color:var(--ink)}
+.chapters .cn{font-family:var(--sans);font-size:.85rem;color:var(--ink-2);display:block}
+.chapters .ct{font-size:1.35rem;font-weight:600}
+.chapters a.ct{text-decoration:none;border-bottom:3px solid var(--yellow)}
+.chapters .soon{color:var(--ink-2)}
+
+/* ---------- abertura do capítulo ---------- */
+.chap-head{background:var(--ink) url("img/cap1.jpg") center/cover no-repeat;color:#fff;position:relative}
+.chap-head::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(27,37,48,.5),rgba(27,37,48,.9))}
+.chap-head .in{position:relative;max-width:1180px;margin:0 auto;padding:clamp(3.5rem,9vw,6.5rem) 1.25rem clamp(2.5rem,6vw,4rem)}
+.chap-head .num{font-family:var(--sans);font-size:1rem;opacity:.85;margin:0 0 .8rem}
+.chap-head h1{font-weight:750;font-size:clamp(2.4rem,6.5vw,4.8rem);line-height:.98;margin:0;max-width:16ch}
+
+/* ---------- cartões de stakeholders ---------- */
+.cards{max-width:1180px;margin:2rem auto 0;padding:0 1.25rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2.2rem 2.5rem}
+.card{border-top:4px solid var(--ink);padding-top:.9rem}
+.card h3{display:flex;gap:.5rem;align-items:baseline}
+.card p{margin:0;font-size:1.05rem;line-height:1.55}
+
+/* ---------- rodadas ---------- */
+.round{max-width:1180px;margin:0 auto;padding:0 1.25rem}
+.round-head{max-width:var(--measure)}
+.task{background:#fff;border-left:6px solid var(--yellow);padding:1rem 1.25rem;margin:1rem 0 1.5rem;font-size:1.08rem}
+.task ol{margin:.4rem 0 0;padding-left:1.3rem}
+
+/* matriz */
+.matrix-wrap{font-family:var(--sans)}
+.tray{background:var(--paper-2);padding:1rem;border-radius:4px;margin-bottom:1rem;min-height:4rem}
+.tray-label{font-size:.85rem;color:var(--ink-2);margin:0 0 .5rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{font:inherit;font-size:.88rem;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:999px;padding:.35rem .75rem;cursor:grab;line-height:1.2}
+.chip.sel{background:var(--yellow);box-shadow:0 0 0 3px var(--ink)}
+.chip.ok{border-color:var(--green);background:#E3F1E9}
+.chip.nok{border-color:var(--red);background:#F6E1DC}
+.status{font-size:.9rem;min-height:1.4em;margin:.2rem 0 .8rem;color:var(--ink-2)}
+.matrix{display:grid;grid-template-columns:2rem 1fr;grid-template-rows:1fr 2rem;gap:.4rem}
+.axis-y{grid-row:1;grid-column:1;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-weight:600;font-size:.9rem;display:flex;align-items:center;justify-content:space-between}
+.axis-x{grid-row:2;grid-column:2;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.9rem}
+.axis-y small,.axis-x small{font-weight:400;color:var(--ink-2)}
+.grid{grid-row:1;grid-column:2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:4px;background:var(--ink);border:4px solid var(--ink)}
+.quad{background:#fff;min-height:11rem;padding:.8rem;cursor:pointer;display:flex;flex-direction:column;gap:.6rem}
+.quad:hover{background:#FFFBEA}
+.quad.drop{background:var(--yellow-soft)}
+.qname{font-weight:700;font-size:1.05rem}
+.qsub{font-size:.8rem;color:var(--ink-2);display:block}
+.row-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+.btn{font-family:var(--sans);font-size:.95rem;font-weight:600;border:2px solid var(--ink);background:var(--ink);color:#fff;padding:.55rem 1rem;border-radius:4px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* horas */
+.hours{font-family:var(--sans);background:#fff;padding:1rem 1.25rem;border-radius:4px}
+.total{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:2px solid var(--ink)}
+.total strong{font-family:var(--serif);font-size:2.4rem;line-height:1}
+.total .msg{font-size:.9rem;color:var(--ink-2)}
+.total.full .msg{color:var(--green);font-weight:600}
+.hrow{display:grid;grid-template-columns:minmax(9rem,14rem) auto 1fr;gap:.8rem;align-items:center;padding:.35rem 0;border-bottom:1px solid var(--paper-2)}
+.hname{font-size:.92rem}
+.stepper{display:flex;align-items:center;gap:.3rem}
+.stepper button{width:2rem;height:2rem;border:1.5px solid var(--ink);background:#fff;border-radius:4px;font:inherit;font-weight:700;cursor:pointer}
+.stepper button:disabled{opacity:.3;cursor:not-allowed}
+.stepper output{min-width:2.2rem;text-align:center;font-weight:700}
+.bar{height:.7rem;background:var(--paper-2);border-radius:2px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--yellow)}
+
+/* envelopes */
+.envelopes{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem;font-family:var(--sans)}
+.env{position:relative;border:2px solid var(--ink);background:#fff;padding:2.6rem 1rem 1rem;text-align:left;cursor:pointer;font:inherit;border-radius:4px;overflow:hidden}
+.env::before{content:"";position:absolute;left:0;right:0;top:0;height:2.2rem;background:linear-gradient(to bottom right,transparent 49%,var(--ink) 50%,transparent 51%),linear-gradient(to bottom left,transparent 49%,var(--ink) 50%,transparent 51%);background-size:50% 100%;background-position:left,right;background-repeat:no-repeat}
+.env strong{display:block;font-size:1.05rem}
+.env span{font-size:.85rem;color:var(--ink-2)}
+.env.chosen{background:var(--yellow)}
+.event{background:#fff;border-left:6px solid var(--ink);padding:1.2rem 1.4rem;margin:1.5rem 0;max-width:var(--measure)}
+.event h3{font-family:var(--serif);font-size:1.6rem;font-weight:750;margin:0 0 .5rem}
+.event p{margin:0}
+.hidden{display:none !important}
+
+/* resumo */
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;font-family:var(--sans)}
+.compare h3{margin-bottom:.6rem}
+.qlist{background:#fff;padding:.8rem 1rem;border-radius:4px}
+.qlist dt{font-weight:700;font-size:.9rem;margin-top:.6rem}
+.qlist dt:first-child{margin-top:0}
+.qlist dd{margin:.1rem 0 0;font-size:.88rem;color:var(--ink-2)}
+.qlist dd .moved{background:var(--yellow-soft);color:var(--ink);padding:0 .25rem}
+table.htable{width:100%;border-collapse:collapse;background:#fff;font-family:var(--sans);font-size:.9rem;margin-top:1.5rem}
+.htable th,.htable td{padding:.5rem .7rem;border-bottom:1px solid var(--paper-2);text-align:left}
+.htable th{background:var(--ink);color:#fff;font-weight:600}
+.htable td.num,.htable th.num{text-align:right;font-variant-numeric:tabular-nums}
+.up{color:var(--green);font-weight:700}
+.down{color:var(--red);font-weight:700}
+.table-scroll{overflow-x:auto}
+
+/* grupo */
+.groups{display:flex;flex-wrap:wrap;gap:.6rem;font-family:var(--sans)}
+.gbtn{font:inherit;font-weight:700;font-size:1.05rem;border:2px solid var(--ink);background:#fff;color:var(--ink);padding:.7rem 1.2rem;border-radius:4px;cursor:pointer}
+.gbtn[aria-pressed="true"]{background:var(--yellow)}
+.gnow{font-family:var(--sans);font-size:.95rem;margin:.8rem 0 0;color:var(--ink-2)}
+.locked-msg{font-family:var(--sans);background:var(--paper-2);padding:1rem 1.25rem;border-radius:4px}
+/* professor */
+.lock{font-family:var(--sans);display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:1rem}
+.lock input{font:inherit;padding:.5rem .7rem;border:2px solid var(--ink);border-radius:4px;width:12rem}
+.lock .err{color:var(--red);font-size:.9rem}
+.answers{margin-top:1.5rem}
+.answers table{width:100%;border-collapse:collapse;background:#fff;font-family:var(--sans);font-size:.9rem}
+.answers th,.answers td{padding:.55rem .7rem;border-bottom:1px solid var(--paper-2);text-align:left;vertical-align:top}
+.answers th{background:var(--ink);color:#fff}
+.tag{display:inline-block;font-size:.78rem;background:var(--yellow-soft);padding:.05rem .4rem;border-radius:3px;margin-left:.3rem}
+
+footer{background:var(--ink);color:#fff;font-family:var(--sans);font-size:.9rem;padding:2.5rem 1.25rem calc(2.5rem + env(safe-area-inset-bottom,0px))}
+footer .in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
+
+
+/* ---------- capítulo 2 ---------- */
+.chap-head.c2{background-image:none}
+.chap-head.c2::before{display:none}
+.gbtn2{font:inherit;font-weight:700;font-size:1.05rem;border:2px solid var(--ink);background:#fff;color:var(--ink);padding:.7rem 1.2rem;border-radius:4px;cursor:pointer;font-family:var(--sans)}
+.gbtn2[aria-pressed="true"]{background:var(--yellow)}
+.dilema{max-width:var(--measure);margin:0 auto}
+.dilema p{margin:0 0 1.1em}
+.dilema h3.dt{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.4rem);font-weight:750;line-height:1.08;margin:0 0 1rem}
+.gq{background:var(--ink);color:#fff;padding:1.2rem 1.4rem 1.3rem;margin:2rem 0 0}
+.gq h4{font-family:var(--sans);font-size:.82rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin:0 0 .6rem;color:var(--yellow)}
+.gq ol{margin:0;padding-left:1.6rem;font-size:1.35rem;font-weight:600;line-height:1.3}
+.gq li{margin:.35rem 0}
+.say{display:block;border-left:4px solid var(--rule);padding-left:1rem;margin-top:.5rem;font-style:italic}
+
+@media (max-width:640px){
+  body{font-size:1.06rem}
+  .hrow{grid-template-columns:1fr auto;}
+  .hrow .bar{grid-column:1 / -1}
+  .quad{min-height:8rem;padding:.6rem}
+  .matrix{grid-template-columns:1.6rem 1fr}
+  .hero svg.route{opacity:.4}
+}
+/* ---------- capítulo 3 ---------- */
+.chap-head.c3{background-image:none}
+.chap-head.c3::before{display:none}
+.nums{max-width:1180px;margin:1.5rem auto 0;padding:0 1.25rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.5rem}
+.num-card{border-top:4px solid var(--ink);padding-top:.8rem}
+.num-card b{display:block;font-family:var(--serif);font-weight:750;font-size:clamp(2.6rem,6vw,3.6rem);line-height:1}
+.num-card span{font-family:var(--sans);font-size:.95rem;color:var(--ink-2);display:block;margin-top:.2rem}
+.num-card.zero b{color:var(--red)}
+.splitwrap{max-width:var(--measure);margin:1.5rem auto 0;padding:0 1.25rem;font-family:var(--sans)}
+.splitbar{display:flex;height:3.2rem;border:2px solid var(--ink);overflow:hidden}
+.splitbar i{display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;font-size:.95rem;text-align:center}
+.splitbar .a{background:var(--yellow);width:40%}
+.splitbar .b{background:#fff;width:60%;color:var(--ink-2)}
+.splitlabels{display:flex;justify-content:space-between;font-size:.9rem;color:var(--ink-2);margin-top:.5rem;gap:1rem}
+.checkout{max-width:var(--measure);margin:1.5rem auto 0;padding:0 1.25rem;font-family:var(--sans)}
+.copt{background:#fff;border:2px solid var(--rule);padding:.9rem 1.1rem;margin-bottom:.7rem;display:flex;gap:.8rem;align-items:flex-start}
+.copt.green{border-color:var(--green);background:#F1F7F3}
+.copt .ico{font-size:1.3rem;line-height:1.2}
+.copt b{display:block;font-size:1.02rem}
+.copt .when{font-size:.92rem;color:var(--ink-2)}
+.copt .fine{display:block;font-size:.82rem;color:var(--ink-2);margin-top:.25rem}
+.months{max-width:var(--measure);margin:1.5rem auto 0;padding:0 1.25rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem;font-family:var(--sans)}
+.mcard{background:#fff;border-left:6px solid var(--ink);padding:1rem 1.1rem}
+.mcard .mname{font-weight:700;font-size:1.05rem}
+.mcard .mbairros{font-size:.9rem;color:var(--ink-2);margin:.15rem 0 .6rem}
+.mcard .mlost{font-family:var(--serif);font-weight:750;font-size:2.2rem;line-height:1;color:var(--red)}
+.mcard .mlostlab{font-size:.88rem;color:var(--ink-2)}
+.facts{max-width:var(--measure);margin:1.5rem auto 0;padding:0 1.25rem;font-family:var(--sans)}
+.fact{display:grid;grid-template-columns:minmax(6.5rem,8rem) 1fr;gap:1rem;align-items:baseline;padding:.8rem 0;border-bottom:1px solid var(--rule)}
+.fact b{font-family:var(--serif);font-weight:750;font-size:1.7rem;line-height:1}
+.fact span{font-size:.98rem;color:var(--ink-2)}
+.problem{max-width:var(--measure);margin:2rem auto 0;padding:1.6rem 1.5rem;background:var(--ink);color:#fff}
+.problem p{margin:0 0 1em;font-size:1.1rem}
+.problem p:last-child{margin:0}
+.problem .q{font-family:var(--serif);font-style:italic;font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.15;color:var(--yellow)}
+.balizas{max-width:var(--measure);margin:1.5rem auto 0;padding:0 1.25rem;font-family:var(--sans)}
+.baliza{background:#fff;border-left:6px solid var(--yellow);padding:.9rem 1.1rem;margin-bottom:.8rem}
+.baliza b{display:block;font-size:1.02rem;margin-bottom:.2rem}
+.baliza span{font-size:.95rem;color:var(--ink-2)}
+.locked3{max-width:var(--measure);margin:0 auto;padding:0 1.25rem}
+.gabwrap{background:#fff;border-top:4px solid var(--ink);padding:1.2rem 1.4rem;margin-top:1rem}
+.gabwrap h3{font-family:var(--serif);font-size:1.5rem;font-weight:750;margin:1.6rem 0 .4rem}
+.gabwrap h3:first-child{margin-top:0}
+.gabwrap p{margin:0 0 1em;font-size:1.05rem}
+.gabwrap p:last-child{margin:0}
+@media (max-width:640px){
+  .splitbar i{font-size:.8rem}
+  .fact{grid-template-columns:1fr}
+}
+@media print{.top,.row-actions,.lock{display:none}}
+/* ---------- capítulo 4 ---------- */
+.chap-head.c4{background-image:none}
+.chap-head.c4::before{display:none}
+.mes4{font-family:var(--sans);font-weight:700;font-size:.85rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);margin:0 0 .3rem}
+.dilema .pergunta4{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.1rem);font-weight:750;line-height:1.15;border-left:6px solid var(--yellow);padding:.3rem 0 .3rem 1rem;margin:2.2rem 0 0}
+.chap-head.c5{background-image:none}
+.chap-head.c5::before{display:none}
+.indice5{display:flex;flex-wrap:wrap;gap:.5rem;font-family:var(--sans);margin:1.2rem 0 2rem;padding:0;list-style:none}
+.indice5 a{display:inline-block;border:2px solid var(--ink);padding:.45rem .9rem;border-radius:4px;text-decoration:none;font-weight:700;font-size:.95rem;background:#fff}
+.indice5 a:hover{background:var(--yellow)}
+.props5{display:flex;flex-direction:column;gap:2rem;margin-top:1.4rem;font-family:var(--sans)}
+.prop5{background:#fff;border-top:6px solid var(--ink);padding:1.2rem 1.4rem 1.5rem}
+.prop5 .pn{font-size:.82rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2);margin:0}
+.prop5 h3{font-family:var(--serif);font-weight:750;font-size:1.7rem;line-height:1.1;margin:.2rem 0 .5rem}
+.prop5 .resumo{font-family:var(--serif);font-size:1.05rem;line-height:1.5;margin:0 0 1rem;max-width:70ch}
+.prop5 .fatos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:.8rem 1.4rem;margin:0 0 1.2rem;font-size:.95rem}
+.prop5 .fatos div b{display:block;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-bottom:.1rem}
+.prop5 .pilar{margin:1.1rem 0 0}
+.prop5 .it{display:grid;grid-template-columns:1fr 5.4rem 5.4rem;gap:.6rem;padding:.4rem 0;border-bottom:1px solid var(--paper-2);font-size:.95rem;line-height:1.35}
+.prop5 .it.h{border-bottom:2px solid var(--ink);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;padding-top:.6rem}
+.prop5 .it.h span:first-child{font-size:.95rem;letter-spacing:.02em}
+.prop5 .it span:nth-child(n+2){text-align:right;white-space:nowrap}
+.prop5 .it.sub{font-weight:700;border-bottom:none}
+.prop5 .tot{background:var(--paper-2);padding:.2rem .8rem;margin-top:1rem}
+.prop5 .tot .it{font-weight:700;border-bottom:none;font-size:1.02rem}
+.prop5 .prob{margin:.5rem 0 .3rem;font-family:var(--serif);font-size:.98rem;line-height:1.4;color:var(--ink-2)}
+.prop5 .nao{margin:1rem 0 0;font-size:.92rem;color:var(--ink-2)}
+@media (max-width:640px){
+ .prop5{padding:1rem 1rem 1.2rem}
+ .prop5 .it{grid-template-columns:1fr 1fr}
+ .prop5 .it span:first-child{grid-column:1/-1}
+ .prop5 .it span:nth-child(n+2){text-align:left}
+ .prop5 .it span[data-l]::before{content:attr(data-l) ": ";font-weight:400;color:var(--ink-2)}
+ .prop5 .it.h span:nth-child(n+2){display:none}
+}
+.prop5.sel{border-top-color:var(--yellow);outline:3px solid var(--yellow)}
+.lado{overflow-x:auto;margin-top:2rem;font-family:var(--sans)}
+.lado h3{font-family:var(--serif);font-weight:750;font-size:1.5rem;margin:0 0 .6rem}
+.lado table{border-collapse:collapse;width:100%;min-width:560px;background:#fff;font-size:.93rem}
+.lado th,.lado td{border-bottom:1px solid var(--paper-2);padding:.5rem .7rem;text-align:left;vertical-align:top}
+.lado thead th{background:var(--ink);color:#fff}
+.lado tbody th{width:22%}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#inicio"><span class="brand-dot" aria-hidden="true"></span>Ligeira</a>
+    <nav aria-label="Capítulos">
+      <a href="#inicio" data-view="inicio">Início</a>
+      <a href="#capitulo-1" data-view="capitulo-1">Cap. 1: Stakeholders</a>
+      <a href="#capitulo-2" data-view="capitulo-2">Cap. 2: Valores</a>
+      <a href="#capitulo-3" data-view="capitulo-3">Cap. 3: O E</a>
+      <a href="#capitulo-4" data-view="capitulo-4">Cap. 4: O S</a>
+      <a href="#capitulo-5" data-view="capitulo-5">Cap. 5: O G</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- =================== INÍCIO =================== -->
+<div id="view-inicio" class="view">
+  <section class="hero">
+    <svg class="route" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g>
+        <line class="street" x1="0" y1="90" x2="1200" y2="40"/>
+        <line class="street" x1="0" y1="250" x2="1200" y2="190"/>
+        <line class="street" x1="0" y1="420" x2="1200" y2="380"/>
+        <line class="street" x1="0" y1="560" x2="1200" y2="540"/>
+        <line class="street" x1="140" y1="0" x2="220" y2="600"/>
+        <line class="street" x1="430" y1="0" x2="470" y2="600"/>
+        <line class="street" x1="720" y1="0" x2="690" y2="600"/>
+        <line class="street" x1="980" y1="0" x2="1040" y2="600"/>
+        <line class="street" x1="0" y1="0" x2="1200" y2="600"/>
+      </g>
+      <path class="route-line" d="M 1200 520 L 1060 505 L 1040 330 L 900 315 L 885 150 L 720 165 L 740 450 L 620 462"/>
+      <circle class="route-stop" cx="1060" cy="505" r="9"/>
+      <circle class="route-stop" cx="900" cy="315" r="9"/>
+      <circle class="route-stop" cx="720" cy="165" r="9"/>
+      <circle class="route-stop" cx="740" cy="450" r="9"/>
+      <circle class="route-stop" cx="620" cy="462" r="9"/>
+    </svg>
+    <div class="hero-in">
+      <p class="kicker">Case de ensino da disciplina ESG, MBA em Gestão Empresarial, FGV, 2026</p>
+      <h1>Ligeira Logística Urbana</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <p class="lede">A Ligeira nasceu em 2018 entregando as encomendas das confecções de Blumenau e cresceu no ritmo do e-commerce catarinense. Hoje, cada entrega feita em poucas horas envolve clientes, entregadores, empregados, credores, vizinhos e as próprias cidades da região, e nem todos ganham com ela na mesma medida.</p>
+      <p>Ao longo de cinco capítulos, o case acompanha os fundadores da Ligeira, Beatriz Nakamura e Diego Rocha, enquanto eles tentam responder à pergunta que atravessa o curso:</p>
+      <p class="pull">É possível gerir um negócio de maneira sustentável para todos os seus stakeholders?</p>
+
+      <h2>Capítulos</h2>
+      <ol class="chapters">
+        <li data-cap="1"><span class="cn">Capítulo 1 · Capitalismo 4.0</span><span class="ct">Os stakeholders da Ligeira</span></li>
+        <li data-cap="2"><span class="cn">Capítulo 2 · Valores</span><span class="ct">Os fundamentos do ESG</span></li>
+        <li data-cap="3"><span class="cn">Capítulo 3 · O E do ESG</span><span class="ct">O desafio ambiental</span></li>
+        <li data-cap="4"><span class="cn">Capítulo 4 · O S do ESG</span><span class="ct">O desafio social</span></li>
+        <li data-cap="5"><span class="cn">Capítulo 5 · O G do ESG</span><span class="ct">O desafio da governança</span></li>
+      </ol>
+      <p class="note">A Ligeira e todos os seus personagens são fictícios. Os dados sobre a região e o setor são ilustrativos.</p>
+    </div>
+  </section>
+</div>
+
+<!-- =================== CAPÍTULO 1 =================== -->
+<div id="view-capitulo-1" class="view hidden">
+  <section class="chap-head">
+    <div class="in">
+      <p class="num">Capítulo 1 · Capitalismo 4.0</p>
+      <h1>Os stakeholders da Ligeira</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <p class="lede">Beatriz Nakamura passou oito anos como consultora de operações de varejo, desenhando rotas de distribuição e processos de estoque para grandes redes. Diego Rocha, formado em Ciência da Computação pela FURB, trabalhava como desenvolvedor numa empresa de software de Blumenau. Em <strong>2018</strong>, os dois fundaram a Ligeira com <strong>R$ 150 mil</strong> de economias próprias, um algoritmo de roteirização escrito por Diego e três motoboys conhecidos de Beatriz. Os primeiros clientes foram confecções e lojas de malha de Blumenau que vendiam pelo Instagram e precisavam entregar no mesmo dia.</p>
+      <p>A divisão de tarefas sempre foi natural. Beatriz cuidava de tudo o que acontecia na rua, ou seja, clientes, galpão, entregadores e dinheiro. Diego cuidava de tudo o que acontecia na tela, o aplicativo, o algoritmo e os dados. Nenhum dos dois jamais tinha gerido uma empresa. Enquanto a Ligeira era pequena, isso não fez falta.</p>
+      <p>A pandemia triplicou o volume de entregas. Em <strong>2023</strong> veio o contrato que mudou a escala da empresa. A Lume Varejo, uma varejista de moda online nascida em Blumenau, passou a usar a Ligeira nas entregas de Joinville a Balneário Camboriú. A Ligeira saiu de Blumenau e passou a rodar também por Joinville, Jaraguá do Sul, Brusque, Itajaí e Balneário Camboriú.</p>
+      <p>No início de 2026, a Ligeira fazia cerca de <strong>1.500 entregas por dia</strong> na região. Faturava <strong>R$ 4,7 milhões por ano</strong>, tinha <strong>19 empregados</strong> e contava com cerca de <strong>220 entregadores cadastrados</strong>.</p>
+      <p>Mas os doze meses anteriores tinham trazido uma sequência de problemas que ninguém previra. A Lume ameaçou reduzir o volume depois de uma semana de atrasos. Uma paralisação de entregadores atrasou <strong>2 mil entregas</strong>. Os moradores vizinhos ao galpão fizeram um abaixo-assinado à prefeitura. Dois desenvolvedores saíram para empresas maiores. E o banco pediu garantias adicionais para renovar o capital de giro.</p>
+      <p class="pull">Cada problema parecia isolado. Beatriz começou a desconfiar de que não eram.</p>
+      <p>Foi com essa inquietação que ela se matriculou no MBA em Gestão Empresarial da FGV. Na disciplina de ESG, entendeu o que ligava todos aqueles problemas. No Capitalismo 4.0, uma empresa só consegue evitar riscos desnecessários e potencializar o seu lucro se souber gerir os seus stakeholders. É essa gestão que impede que o crescimento seja feito à custa dos outros, e que torna o próprio Capitalismo 4.0 possível. Na mesma disciplina, Beatriz aprendeu a matriz de poder e interesse. Voltou para a Ligeira decidida a usá-la. Antes de qualquer outra decisão, queria saber quem era quem.</p>
+    </div>
+  </section>
+
+  <section class="section" id="stakeholders">
+    <div class="prose"><h2>Os 12 stakeholders</h2></div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- GRUPO -->
+  <section class="section" id="grupo">
+    <div class="round">
+      <div class="round-head">
+        <h2>Qual é o seu grupo?</h2>
+        <div class="task">Cada grupo trabalha num único aparelho. Escolham o número do grupo antes de começar: as respostas de cada grupo ficam separadas.</div>
+      </div>
+      <div class="groups" id="groups"></div>
+      <p class="gnow" id="gnow" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <div id="rounds-locked" class="round"><p class="locked-msg">Escolham o grupo acima para liberar as rodadas.</p></div>
+  <div id="rounds">
+  <!-- RODADA 1 -->
+  <section class="section" id="rodada-1">
+    <div class="round">
+      <div class="round-head">
+        <h2>Rodada 1: a matriz</h2>
+        <div class="task">Posicionem cada um dos 12 stakeholders da Ligeira na matriz de poder e interesse.</div>
+      </div>
+      <div class="matrix-wrap" data-matrix="r1"></div>
+      <div class="row-actions">
+        <button class="btn ghost" type="button" data-reset="r1">Limpar a matriz</button>
+        <button class="btn" type="button" id="show-lock">Ver o gabarito</button>
+      </div>
+      <div class="lock hidden" id="lock">
+        <label for="code">Código do professor</label>
+        <input id="code" type="password" autocomplete="off">
+        <button class="btn" type="button" id="unlock">Abrir</button>
+        <span class="err" id="lock-err" role="alert"></span>
+      </div>
+      <div class="answers hidden" id="answers"></div>
+    </div>
+  </section>
+
+  <!-- RODADA 2 -->
+  <section class="section" id="rodada-2">
+    <div class="round">
+      <div class="round-head">
+        <h2>Rodada 2: as horas da CEO</h2>
+        <div class="task">Beatriz tem <strong>40 horas por mês</strong> para dedicar a stakeholders: reuniões, visitas, telefonemas, negociações. Distribuam essas horas entre os 11 stakeholders da Ligeira. O total precisa fechar em exatamente 40. Depois, respondam: quem ficou com mais horas, e por quê? Quem ficou com zero, e o que isso pode custar à Ligeira?</div>
+      </div>
+      <div class="hours" data-hours="r2"></div>
+      <div class="row-actions"><button class="btn ghost" type="button" data-reset="r2">Zerar as horas</button></div>
+    </div>
+  </section>
+
+  <!-- RODADA 3 -->
+  <section class="section" id="rodada-3">
+    <div class="round">
+      <div class="round-head">
+        <h2>Rodada 3: o evento</h2>
+        <div class="task">Abram o envelope do seu grupo só quando o professor autorizar. Diante do acontecimento:
+          <ol>
+            <li>Algum stakeholder muda de quadrante? Se muda, movam-no na matriz e expliquem por quê.</li>
+            <li>Redistribuam as 40 horas de Beatriz. De quem vocês tiraram tempo?</li>
+          </ol>
+        </div>
+      </div>
+      <div class="envelopes" id="envelopes"></div>
+      <div id="event-area" class="hidden">
+        <article class="event" id="event-text"></article>
+        <h3>A matriz depois do evento</h3>
+        <p class="note">A matriz começa igual à da rodada 1. Movam apenas o que mudou.</p>
+        <div class="matrix-wrap" data-matrix="r3"></div>
+        <h3 style="margin-top:2rem">As horas depois do evento</h3>
+        <div class="hours" data-hours="r3h"></div>
+        <div class="row-actions">
+          <button class="btn ghost" type="button" id="recopy">Recomeçar a partir das rodadas 1 e 2</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUMO -->
+  <section class="section" id="resumo">
+    <div class="round">
+      <div class="round-head">
+        <h2 id="sum-title">Antes e depois</h2>
+        <p class="note">Esta é a tela para a apresentação de dois minutos do grupo.</p>
+      </div>
+      <div id="summary"></div>
+    </div>
+  </section>
+
+  </div>
+  <!-- PROFESSOR -->
+  <section class="section hidden" id="professor">
+    <div class="round">
+      <div class="round-head"><h2>Notas do professor</h2></div>
+      <div class="answers" id="prof-notes"></div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== CAPÍTULO 2 =================== -->
+<div id="view-capitulo-2" class="view hidden">
+  <section class="chap-head c2">
+    <div class="in">
+      <p class="num">Capítulo 2 · Valores</p>
+      <h1>Os fundamentos do ESG</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <p class="lede">No começo de 2026, a Ligeira tinha um problema na mesa. O crédito continuava caro, as garantias continuavam sendo os apartamentos dos dois sócios, e o caixa não aguentaria outro ano apertado.</p>
+      <p>Foi nessa época que apareceu <strong>Tiago Medeiros</strong>. Tinha 47 anos e passara quinze como diretor de operações de uma grande rede varejista do Sul. Agora vivia de investir em pequenas empresas em que gostava de pôr a mão na massa. Conhecia logística por dentro, falava a língua dos grandes clientes e tinha o telefone dos diretores certos. Propôs aportar <strong>R$ 1 milhão por 25%</strong> da Ligeira.</p>
+      <p>A conta fechava com folga. R$ 600 mil quitaram a linha de capital de giro, os apartamentos de Beatriz e Diego saíram da garantia e o restante foi para o caixa. Tiago não quis conselho. Uma empresa de 19 empregados, disse, não precisa de conselho, precisa de gente que resolva. Ganhou uma mesa no galpão e uma diretoria de Expansão e Relacionamento. No acordo de sócios, as decisões passaram a ser tomadas por maioria do capital. Tiago pediu também que o contrato detalhasse as regras de saída dos sócios. “Formalidades”, disse. Diego leu as primeiras páginas.</p>
+      <p>Nos primeiros meses, Tiago entregou o que prometeu. Renegociou o contrato do galpão, abriu uma conversa direta com a diretoria da Lume e resolveu em uma semana um problema que Beatriz carregava havia meses. Beatriz, por sua vez, aproveitou a nova fase para publicar um Código de Conduta, em março, e lançar um canal de denúncias, três semanas atrás. Ninguém na empresa tinha motivo para desconfiar de Tiago. Nem os próprios sócios.</p>
+      <p class="pull">Tiago nunca dizia que era errado. Dizia que era o preço de continuar no jogo.</p>
+      <p>Foram cinco decisões. Em cada uma, o caminho certo tinha um custo alto, e Tiago tinha um atalho pronto, sempre em nome do comercial.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><h3><span aria-hidden="true">👩‍💼</span>Beatriz Nakamura</h3><p><strong>37,5%</strong> do capital. Conduz clientes, galpão, entregadores e finanças.</p></article>
+      <article class="card"><h3><span aria-hidden="true">👨‍💻</span>Diego Rocha</h3><p><strong>37,5%</strong> do capital. Dono do algoritmo, que só ele conhece por inteiro.</p></article>
+      <article class="card"><h3><span aria-hidden="true">🤝</span>Tiago Medeiros</h3><p><strong>25%</strong> do capital. Diretor de Expansão e Relacionamento. Ajuda de verdade, e sempre com um argumento pronto.</p></article>
+    </div>
+    <div class="prose">
+      <div class="task" style="margin-top:2rem"><strong>Como se decide na Ligeira.</strong> Por maioria do capital. Beatriz e Diego juntos somam 75%. Tiago, com qualquer um dos dois, soma 62,5%. Na prática, Beatriz precisa convencer o Diego. Quando ela não consegue, quem convence primeiro é o Tiago.</div>
+    </div>
+  </section>
+
+  <section class="section" id="grupo-2">
+    <div class="round">
+      <div class="round-head">
+        <h2>Qual é o seu grupo?</h2>
+        <div class="task">Cada grupo trabalha num único aparelho. Escolham o número do grupo: ele define o dilema que vocês vão enfrentar.</div>
+      </div>
+      <div class="groups" id="groups2"></div>
+      <p class="gnow" id="gnow2" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <div id="dilema-locked" class="round"><p class="locked-msg">Escolham o grupo acima para liberar o envelope.</p></div>
+  <section class="section hidden" id="dilema">
+    <div class="round">
+      <div class="round-head">
+        <h2 id="dilema-h2">O dilema do seu grupo</h2>
+        <div class="task">Abram o envelope só quando o professor autorizar. Leiam com atenção e respondam às duas perguntas do fim. Decidir é obrigatório: não decidir também é decidir, e, nesse caso, quem já tem uma proposta pronta é o Tiago. Depois, contem à turma o que aconteceu no grupo e o que vocês decidiram.</div>
+      </div>
+      <div class="envelopes" id="envelopes2"></div>
+      <div id="dilema-area" class="hidden"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><p class="note">Ligeira, Lume, Enxaimel Frotas e todos os personagens são fictícios. Os valores em reais, os percentuais e os prazos deste capítulo são ilustrativos. A lei de igualdade salarial citada no capítulo é real, a Lei 14.611/2023.</p></div>
+  </section>
+
+</div>
+
+<!-- =================== CAPÍTULO 3 =================== -->
+<div id="view-capitulo-3" class="view hidden">
+  <section class="chap-head c3">
+    <div class="in">
+      <p class="num">Capítulo 3 · O E do ESG</p>
+      <h1>O desafio ambiental</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><h2>Primeiro, o que a Ligeira faz todo dia</h2></div>
+    <div class="nums">
+      <div class="num-card"><b>1.500</b><span>entregas por dia</span></div>
+      <div class="num-card"><b>220</b><span>entregadores cadastrados</span></div>
+      <div class="num-card"><b>8</b><span>entregas por dia, em média, por entregador</span></div>
+      <div class="num-card zero"><b>0</b><span>veículos elétricos</span></div>
+    </div>
+    <div class="prose" style="margin-top:2rem">
+      <p>A frota da Ligeira é inteiramente terceirizada e inteiramente <strong>a combustão</strong>.</p>
+    </div>
+    <div class="splitwrap">
+      <div class="splitbar" role="img" aria-label="Das 1.500 entregas por dia, 600 são da Lume e 900 de 25 clientes menores">
+        <i class="a">600 · Lume</i>
+        <i class="b">900 · outros 25 clientes</i>
+      </div>
+      <div class="splitlabels">
+        <span><strong>40% da receita</strong> vem da Lume</span>
+        <span>nenhum dos outros passa de 4%</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <h2>O que mudou</h2>
+      <p>Em março, a Lume lançou uma campanha nova. Na tela de pagamento do site, o cliente passou a escolher entre duas formas de entrega.</p>
+    </div>
+    <div class="checkout">
+      <div class="copt green">
+        <span class="ico" aria-hidden="true">🌱</span>
+        <span><b>Entrega Limpa</b><span class="when">chega em até 4 dias</span>
+        <span class="fine">Sua compra chega sem fumaça e sem barulho, num veículo elétrico.</span></span>
+      </div>
+      <div class="copt">
+        <span class="ico" aria-hidden="true">⚡</span>
+        <span><b>Entrega expressa</b><span class="when">chega amanhã</span></span>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:2rem">
+      <p>A Entrega Limpa não aparece para todo mundo. Ela só aparece quando o endereço do cliente está numa região onde a Lume consegue cumprir a promessa. Em março, eram <strong>três bairros</strong>. Em abril, <strong>sete</strong>.</p>
+      <p>Quem faz essas entregas não é a Ligeira. É uma das outras duas empresas de logística que atendem a Lume, e que começou a trocar a frota no ano passado.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><h2>O e-mail</h2></div>
+    <article class="event" style="margin-left:auto;margin-right:auto">
+      <h3>De Rafael Tavares, diretor de logística da Lume</h3>
+      <p>“Beatriz, você já viu a campanha. O cliente escolhe, e a gente roteia conforme a escolha dele. Não vou pedir meta nem prazo a vocês. Só queria que soubessem o que está acontecendo, para não serem pegos de surpresa daqui a um ano.”</p>
+    </article>
+    <div class="prose">
+      <p>Não houve exigência. Não houve ultimato. Não houve contrato novo.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><h2>O que está acontecendo com o volume</h2></div>
+    <div class="months">
+      <div class="mcard">
+        <div class="mname">Março</div>
+        <div class="mbairros">3 bairros com Entrega Limpa</div>
+        <div class="mlost">60</div>
+        <div class="mlostlab">entregas por dia que a Ligeira deixou de fazer</div>
+      </div>
+      <div class="mcard">
+        <div class="mname">Abril</div>
+        <div class="mbairros">7 bairros com Entrega Limpa</div>
+        <div class="mlost">130</div>
+        <div class="mlostlab">entregas por dia que a Ligeira deixou de fazer</div>
+      </div>
+    </div>
+    <div class="prose" style="margin-top:2rem">
+      <p>A Ligeira não perdeu a Lume. Continua entregando, continua faturando, continua sendo fornecedora. Só que de uma fatia que diminui a cada mês em que a concorrente cobre um bairro novo.</p>
+      <p class="pull">Não existe o dia em que a Ligeira perde a Lume. Existe o mês em que ela percebe que perdeu.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><h2>O que a Ligeira tem</h2></div>
+    <div class="facts">
+      <div class="fact"><b>R$ 400 mil</b><span>em caixa. É o que sobrou do aporte de Tiago Medeiros e o dinheiro que paga a folha quando o mês aperta</span></div>
+      <div class="fact"><b>15%</b><span>dos entregadores deixam a empresa todo mês</span></div>
+      <div class="fact"><b>Nenhum</b><span>veículo próprio. Toda a frota é terceirizada</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><h2>O problema</h2></div>
+    <div class="problem">
+      <p>Ninguém está exigindo nada da Ligeira. Não há meta a cumprir, prazo a vencer nem relatório a entregar.</p>
+      <p>Há um cliente que representa 40% da receita migrando, pedido a pedido, para quem tem veículo elétrico. E há R$ 400 mil em caixa.</p>
+      <p class="q">O que vocês vão fazer?</p>
+    </div>
+  </section>
+
+  <section class="section" id="balizas">
+    <div class="round-head prose">
+      <h2>O que a proposta de vocês precisa dizer</h2>
+    </div>
+    <div class="balizas">
+      <div class="baliza"><b>Quantas entregas por dia ela recupera</b><span>Um número, não uma intenção. Das 600 entregas diárias da Lume, quantas voltam a sair pela Ligeira com a solução de vocês. Se a proposta cobre só parte da operação, digam qual parte e por quê.</span></div>
+      <div class="baliza"><b>Quantos veículos isso exige</b><span>O tipo de veículo e quantos. Para chegar a esse número, é preciso estimar quantas entregas cada veículo faz por dia. A média da empresa é 8 por entregador, mas nada obriga a solução de vocês a trabalhar com essa média.</span></div>
+      <div class="baliza"><b>Quanto custa, em duas linhas</b><span>O desembolso de entrada, se houver, e o custo que passa a existir todo mês. São números diferentes e decidem coisas diferentes.</span></div>
+      <div class="baliza"><b>Quem paga</b><span>A empresa, o cliente ou o entregador. Se a conta for parcialmente de alguém que não está nesta sala, digam quanto e por quê.</span></div>
+      <div class="baliza"><b>Quando a primeira entrega limpa acontece</b><span>Não a data do plano pronto, e sim a data em que o primeiro pacote sai num veículo sem fumaça. E depois, em quantos meses a solução chega ao tamanho que vocês propuseram.</span></div>
+      <div class="baliza"><b>O que faria vocês pararem</b><span>Escolham um número e um prazo que, se não forem atingidos, mostram que a solução não está funcionando. Quem não define isso antes só descobre o erro quando o dinheiro já acabou.</span></div>
+    </div>
+
+    <div class="round-head prose" style="margin-top:2.5rem">
+      <h2>O que não dá para ignorar</h2>
+    </div>
+    <div class="balizas">
+      <div class="baliza"><b>Os R$ 400 mil são a reserva da folha</b><span>É o dinheiro que paga 19 salários nos meses em que o caixa aperta. Gastá-lo não é proibido, mas precisa ser decidido de olhos abertos, e dito na proposta.</span></div>
+      <div class="baliza"><b>A Ligeira não tem veículo, oficina, mecânico nem ponto de recarga</b><span>O que existe hoje é um galpão de triagem na Itoupava Norte e um aplicativo. Qualquer veículo que entre na operação traz junto manutenção, energia, guarda e seguro.</span></div>
+      <div class="baliza"><b>15% dos entregadores deixam a empresa todo mês</b><span>São cerca de 33 pessoas por mês saindo e outras tantas entrando, com duas semanas para recrutar e treinar cada uma. Qualquer arranjo que dependa de a mesma pessoa continuar ali daqui a um ano precisa explicar como sobrevive a isso.</span></div>
+      <div class="baliza"><b>O entregador ganha por corrida</b><span>Não é empregado, não tem salário fixo, e a maioria roda também para outras plataformas. Ele escolhe onde trabalhar todo dia.</span></div>
+      <div class="baliza"><b>O relógio</b><span>Em março foram 60 entregas por dia, em abril foram 130. A solução precisa estar funcionando antes que a conta chegue ao fim, e vocês é que vão estimar quando isso acontece.</span></div>
+      <div class="baliza"><b>A Lume não pediu nada</b><span>Não há contrato novo a cumprir nem interlocutor obrigado a responder. O que existe é uma empresa que precisa de quem entregue nos bairros que ela quer abrir.</span></div>
+    </div>
+
+    <div class="round-head prose" style="margin-top:2.5rem">
+      <h2>O que vale pesquisar</h2>
+      <p>O grupo pode pesquisar no celular.</p>
+    </div>
+    <div class="balizas">
+      <div class="baliza"><b>Preços</b><span>Quanto custa hoje, no Brasil, uma moto elétrica usada para entrega e uma bicicleta elétrica de carga. Anotem a fonte e a data.</span></div>
+      <div class="baliza"><b>Formas de pagar</b><span>Se essas máquinas são vendidas, alugadas ou financiadas, e em que condições. Há diferença grande entre comprar e ter disponível.</span></div>
+      <div class="baliza"><b>Autonomia e recarga</b><span>Quantos quilômetros cada tipo roda por carga, quanto tempo leva para carregar e se a bateria sai do veículo. Isso decide quantas entregas por dia são possíveis.</span></div>
+      <div class="baliza"><b>O terreno</b><span>Onde, nas cidades em que a Ligeira roda, uma bicicleta de carga funciona e onde ela não sobe. Blumenau e Joinville não têm o mesmo relevo.</span></div>
+      <div class="baliza"><b>O que já existe</b><span>Empresas de entrega no Brasil que fizeram essa troca, o que usaram e o que deu certo ou errado. Dois ou três exemplos reais valem mais que uma estimativa.</span></div>
+      <div class="baliza"><b>O que as cidades estão preparando</b><span>Regras de circulação, licenciamento e incentivos para veículos elétricos em Blumenau, Joinville e nas outras cidades da região, hoje e no horizonte próximo.</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><p class="note">Ligeira, Lume, Enxaimel Frotas e todos os personagens são fictícios. Os valores em reais, os percentuais e os prazos deste capítulo são ilustrativos.</p></div>
+  </section>
+
+  <section class="section" id="gabarito">
+    <div class="round">
+      <div class="round-head"><h2>Gabarito</h2></div>
+      <div class="locked3">
+        <div class="row-actions"><button class="btn ghost" type="button" id="abrir-gab">Abrir o gabarito</button></div>
+        <div class="lock hidden" id="lock-gab">
+          <label for="cod-gab">Código do professor</label>
+          <input id="cod-gab" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+          <button class="btn" type="button">Abrir</button>
+          <span class="err" id="err-gab" role="alert"></span>
+        </div>
+        <div class="gabwrap hidden" id="gabarito-3">
+          <h3>O caminho da Ligeira</h3>
+          <p>A Ligeira deixou de fazer 60 entregas por dia em março e 130 em abril. Nesse ritmo, o cliente que responde por 40% da receita se esvai em pouco mais de um ano. Qualquer plano precisa caber nesse prazo.</p>
+          <p>Com 1.500 entregas por dia, cerca de 550 mil por ano, e R$ 4,7 milhões de faturamento, cada entrega vale em torno de <strong>R$ 8,60</strong>. As 130 entregas diárias já perdidas equivalem a aproximadamente <strong>R$ 400 mil por ano</strong>. É contra esse número que o investimento se dimensiona.</p>
+
+          <h3>Pedir à Lume o calendário dos bairros</h3>
+          <p>A Lume liga a Entrega Limpa onde tem quem entregue, e cada bairro sem cobertura é uma venda que ela não consegue fazer. Ela quer mais oferta e informará a ordem e as datas. Com isso, a Ligeira trabalha com um mapa e um calendário, em vez de uma estimativa de percentual.</p>
+
+          <h3>Concentrar a capacidade nos bairros centrais e planos</h3>
+          <p>As 8 entregas diárias por entregador são uma média puxada para baixo pelas rotas longas entre as cidades. Num bairro central, adensado e plano, as entregas são curtas e próximas umas das outras, e um único veículo rende várias vezes mais. Eletrificar os bairros que a Lume vai abrir cobre a demanda com uma fração dos veículos que uma conta de percentual sobre a operação inteira exigiria.</p>
+
+          <h3>Começar por bicicleta elétrica de carga, onde o terreno deixa</h3>
+          <p>Roupa é pacote pequeno e leve. Em bairro plano e denso, a bicicleta elétrica de carga faz o serviço. Custa uma fração de uma moto, não exige habilitação nem emplacamento, carrega em tomada comum e tem bateria removível. Joinville é plana e tem tradição de bicicleta, e é por lá que faz sentido começar. Em Blumenau, a bicicleta funciona no centro e nas áreas planas ao longo do rio. Nos bairros de morro, a moto elétrica entra antes.</p>
+
+          <h3>Alugar os veículos</h3>
+          <p>A locação converte o investimento em custo mensal, dimensionado ao volume que de fato migrar, e reversível se a migração desacelerar. Evita depreciação, manutenção, seguro e risco de roubo numa empresa sem oficina e sem gestão de frota.</p>
+
+          <h3>Manter o veículo com a operação</h3>
+          <p>O veículo elétrico pertence à Ligeira e é entregue ao entregador por turno, como ferramenta de trabalho. Quando o entregador sai, a bicicleta fica e o próximo a usa no dia seguinte. Com 15% de rotatividade mensal, é o único arranjo em que o ativo permanece na operação. Também evita endividar em milhares de reais quem recebe por corrida.</p>
+
+          <h3>Negociar volume garantido com a Lume</h3>
+          <p>A proposta a levar ao Rafael é esta. A Ligeira monta capacidade elétrica nos bairros que a Lume quiser, na ordem que a Lume quiser, desde que a Lume garanta volume mínimo nesses bairros por doze meses. Volume garantido vira previsibilidade, e previsibilidade é o que permite assinar um contrato de locação sem comprometer o caixa.</p>
+
+          <h3>Piloto de 60 dias antes da escala</h3>
+          <p>Um bairro plano de Joinville, seis a oito bicicletas elétricas, dois meses. Mede-se quantas entregas um veículo elétrico faz por dia naquele bairro, quanto custa cada entrega, como o entregador reage e o que acontece com a rotatividade entre quem recebe o veículo da empresa. Com esses números, a decisão de escalar passa a ser cálculo.</p>
+
+          <h3>Três coisas a evitar</h3>
+          <p><strong>Comprometer o caixa.</strong> Os R$ 400 mil pagam a folha quando o mês aperta. O plano precisa caber em desembolso mensal.</p>
+          <p><strong>Comprar frota.</strong> Imobiliza capital num ativo que desvaloriza, numa operação que pode mudar de forma em um ano.</p>
+          <p><strong>Transferir o veículo para o entregador.</strong> Exigir ou financiar o veículo de quem ganha por corrida resolve a conta da empresa criando duas classes de entregador dentro da mesma operação. O problema reaparece na forma de rotatividade e de conflito.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="segredo">
+    <div class="round">
+      <div class="round-head"><h2>Segredo</h2></div>
+      <div class="locked3">
+        <div class="row-actions"><button class="btn ghost" type="button" id="abrir-seg">Abrir o segredo</button></div>
+        <div class="lock hidden" id="lock-seg">
+          <label for="cod-seg">Código do professor</label>
+          <input id="cod-seg" type="password" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+          <button class="btn" type="button">Abrir</button>
+          <span class="err" id="err-seg" role="alert"></span>
+        </div>
+        <div class="gabwrap hidden" id="segredo-3">
+          <h3>Por que a Lume está fazendo isso</h3>
+          <p>A Lume não acordou preocupada com o planeta.</p>
+          <p>Nos últimos três anos, ela perdeu participação de mercado para plataformas asiáticas de moda que vendem peças semelhantes por uma fração do preço, com frete subsidiado e catálogo renovado toda semana. A Lume não tem como vencer no preço. Decidiu disputar em outro terreno, com marca catarinense, produção rastreada e entrega limpa.</p>
+          <p>Para financiar essa virada em tecnologia, estoque e marketing, a Lume tomou um empréstimo de longo prazo com um banco.</p>
+          <p>E o contrato desse empréstimo tem uma cláusula. A taxa de juros cai se a Lume cumprir metas ambientais acordadas, e sobe se não cumprir. Uma dessas metas é a eletrificação da entrega nas cidades onde ela mais vende.</p>
+          <p>É por isso que Rafael Tavares acompanha bairro a bairro, mês a mês. Não é campanha de marketing com prazo elástico. É o custo da dívida da Lume, revisado a cada período, com base num indicador que depende de fornecedores que ela não controla.</p>
+          <p class="pull" style="font-size:1.3rem;margin:1.2rem 0">A pressão que chegou à Ligeira não começou na Lume. Começou no banco que emprestou à Lume.</p>
+          <p>E ela não para aí. A mesma lógica desce um degrau de cada vez. O banco cobra da Lume. A Lume precisa de quem entregue. A Ligeira precisa de quem pilote. No fim da fila está um entregador que ganha por corrida e não participou de nenhuma dessas conversas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- =================== CAPÍTULO 4 =================== -->
+<div id="view-capitulo-4" class="view hidden">
+  <section class="chap-head c4">
+    <div class="in">
+      <p class="num">Capítulo 4 · O S do ESG</p>
+      <h1>O desafio social</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="prose">
+      <p class="lede">Cada vez mais, a Ligeira se parece com qualquer outra empresa. Tem clientes que cobram, concorrentes que se mexem, contas para pagar e sócios que nem sempre concordam. A diferença está na área em que atua. A Ligeira vive de gente. São 220 entregadores que ganham por entrega e não têm vínculo com a empresa, 19 empregados e, em volta do galpão da Itoupava Norte, 60 famílias que moram na vizinhança. É uma área com grandes desafios sociais.</p>
+      <p>A Lume, principal cliente da Ligeira e responsável por 40% da receita, cresceu depressa com dinheiro de investidores. Agora esses investidores cobram que ela prove que seus fornecedores seguem boas práticas sociais, e a Lume repassa a cobrança a quem trabalha para ela.</p>
+      <p>Os dilemas a seguir colocam o S do ESG para funcionar. Em nenhum deles a lei obriga a Ligeira a fazer alguma coisa. Cada grupo recebe uma situação em que fazer o bem custa caro e tem consequências para o negócio.</p>
+    </div>
+  </section>
+
+  <section class="section" id="grupo-4">
+    <div class="round">
+      <div class="round-head">
+        <h2>Qual é o seu grupo?</h2>
+      </div>
+      <div class="groups" id="groups4"></div>
+      <p class="gnow" id="gnow4" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <div id="decisao-locked" class="round"><p class="locked-msg">Escolham o grupo acima para ver o desafio.</p></div>
+  <section class="section hidden" id="decisao-4">
+    <div id="dilema4-area"></div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><p class="note">Ligeira, Lume, Enxaimel Frotas, Verde Rota, Alto do Parque e todos os personagens são fictícios. Os valores em reais, os percentuais e os prazos deste capítulo são ilustrativos.</p></div>
+  </section>
+</div>
+
+<!-- =================== CAPÍTULO 5 =================== -->
+<div id="view-capitulo-5" class="view hidden">
+  <section class="chap-head c5">
+    <div class="in">
+      <p class="num">Capítulo 5 · O G do ESG</p>
+      <h1>O desafio da governança</h1>
+    </div>
+  </section>
+
+  <section class="section" id="retrospectiva-5">
+    <div class="prose">
+      <div id="retro5"></div>
+    </div>
+  </section>
+
+  <section class="section" id="propostas-5">
+    <div class="round">
+      <div class="round-head"><h2>As três propostas</h2><div id="intro-props5"></div></div>
+      <div class="props5" id="props5"></div>
+    </div>
+  </section>
+
+  <section class="section" id="grupo-5">
+    <div class="round">
+      <div class="round-head"><h2>Qual é o seu grupo?</h2></div>
+      <div class="groups" id="groups5"></div>
+      <p class="gnow" id="gnow5" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <div id="decisao5-locked" class="round"><p class="locked-msg">Escolham o grupo acima para ver a tarefa.</p></div>
+  <section class="section hidden" id="tarefa-5">
+    <div class="round" id="tarefa5-area"></div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><p class="note">A Ligeira, as consultorias e todos os personagens são fictícios. Os valores em reais, os percentuais e os prazos deste capítulo são ilustrativos.</p></div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="in">
+    <span class="sig">Prof. Eduardo Pedreira</span>
+    <span>ESG, MBA em Gestão Empresarial, FGV</span>
+  </div>
+</footer>
+
+<script>
+/* Para trocar o código do professor, altere a linha abaixo. */
+const PROF_CODE = "LIGEIRASUL";
+
+const QUADS = {
+  AP_BI:{name:"Satisfazer", sub:"Alto poder, baixo interesse"},
+  AP_AI:{name:"Gerenciar de perto", sub:"Alto poder, alto interesse"},
+  BP_BI:{name:"Monitorar", sub:"Baixo poder, baixo interesse"},
+  BP_AI:{name:"Informar", sub:"Baixo poder, alto interesse"}
+};
+const QUAD_ORDER = ["AP_BI","AP_AI","BP_BI","BP_AI"];
+
+const S = [
+ {id:"lume", e:"🛍️", n:"Lume Varejo", q:"AP_BI",
+  t:"Varejista de moda online nascida em Blumenau, cliente desde 2023. Responde por <strong>40% da receita</strong> da Ligeira. Trabalha com <strong>outras duas empresas de entrega</strong> e redistribui o volume todo mês conforme o desempenho de cada uma. Depois da semana de atrasos, seu diretor de logística avisou que poderia transferir o volume “em trinta dias”.",
+  j:"40% da receita; ela troca de fornecedor em 30 dias."},
+ {id:"lojistas", e:"🏪", n:"Lojistas e e-commerces médios", q:"BP_AI",
+  t:"Cerca de <strong>25 clientes</strong>, de confecções de malha a cervejarias artesanais da região. Nenhum passa de <strong>4% da receita</strong>. Para a maioria, a Ligeira é a única empresa que faz entrega no mesmo dia por um preço que cabe na sua margem.",
+  j:"Pouco peso individual; sem alternativa viável."},
+ {id:"banco", e:"🏦", n:"Banco credor", q:"AP_BI",
+  t:"A Ligeira deve <strong>R$ 600 mil</strong> numa linha de capital de giro, usada para alugar o galpão e comprar equipamentos. A garantia são os <strong>imóveis pessoais</strong> dos dois sócios. No último pedido de renovação, o banco exigiu garantias adicionais. A Ligeira é uma cliente pequena na carteira de empresas da agência.",
+  j:"Sem o crédito, a operação para; para o banco, a Ligeira é pequena."},
+ {id:"beatriz", e:"👩‍💼", n:"Beatriz Nakamura", q:"AP_AI", ceo:true,
+  t:"Sócia com <strong>50%</strong> da empresa. Conduz clientes, galpão, entregadores e finanças. Todo o seu patrimônio está na Ligeira, e o seu apartamento é garantia do empréstimo.",
+  j:"Conduz a operação; todo o patrimônio dela está em jogo."},
+ {id:"diego", e:"👨‍💻", n:"Diego Rocha", q:"AP_AI",
+  t:"Sócio com <strong>50%</strong> da empresa. Criou o algoritmo de roteirização, principal diferencial da Ligeira, que <strong>nunca foi documentado por completo</strong>: só ele conhece o código inteiro. Também deu o seu apartamento como garantia do empréstimo.",
+  j:"Só ele domina o algoritmo; todo o patrimônio dele está em jogo."},
+ {id:"entregadores", e:"🏍️", n:"Entregadores cadastrados", q:"AP_AI", debate:true,
+  t:"Cerca de <strong>220 pessoas</strong>, de moto, bicicleta e carro, espalhadas pelas cidades da região. Não são empregados e recebem por entrega. <strong>70%</strong> trabalham também para outras plataformas, e para <strong>40%</strong> a Ligeira é a principal fonte de renda. Sem eles, nenhuma entrega acontece. A cada mês, cerca de <strong>15%</strong> deixam de trabalhar para a empresa, e recrutar e treinar um novo entregador leva duas semanas.",
+  j:"Sem eles não há entrega; as decisões da Ligeira mexem na renda deles. Em debate: para 60%, a Ligeira não é a renda principal."},
+ {id:"galpao", e:"📦", n:"Equipe do galpão", q:"BP_AI",
+  t:"<strong>12 empregados</strong> com carteira assinada, em dois turnos de triagem no galpão da Itoupava Norte, em Blumenau. A função pode ser aprendida em poucos dias. A maioria mora nos bairros vizinhos e em Gaspar e Indaial, e muitos estão no <strong>primeiro emprego formal</strong>. A indústria da região contrata o ano inteiro, e a Ligeira disputa gente com ela.",
+  j:"Função fácil de ensinar, gente difícil de repor num mercado em que falta mão de obra; o emprego formal pesa na vida de cada um."},
+ {id:"tech", e:"⚙️", n:"Equipe de tecnologia", q:"AP_BI",
+  t:"<strong>4 desenvolvedores</strong> que mantêm o aplicativo e o algoritmo. Recebem com frequência contatos de recrutadores das empresas de software de Blumenau e Joinville. No último ano, <strong>dois saíram</strong> para empresas maiores, com salários até <strong>40% mais altos</strong>, e a reposição levou quatro meses.",
+  j:"Reposição de quatro meses; eles têm ofertas melhores no mercado."},
+ {id:"frotas", e:"🚐", n:"Enxaimel Frotas", q:"AP_BI",
+  t:"Locadora que fornece <strong>6 vans</strong> para as entregas volumosas e para levar a carga do galpão às cidades da região. É uma das poucas locadoras do Vale que aluga sem exigir garantia adicional e aceita pagamento mensal, condição de que a Ligeira depende desde que saiu do aperto bancário. Sua carteira é dominada por grandes varejistas e indústrias, e a Ligeira é uma cliente pequena.",
+  j:"Poucas alternativas nas condições de pagamento que a Ligeira sustenta; a Ligeira é cliente pequena."},
+ {id:"prefeitura", e:"🏛️", n:"Prefeitura de Blumenau", q:"AP_BI",
+  t:"Define as regras de carga e descarga, licencia o galpão e regula o serviço de motofrete. Para a prefeitura, a Ligeira é uma entre centenas de empresas de logística da cidade.",
+  j:"Pode inviabilizar a operação; a Ligeira é uma entre centenas."},
+ {id:"moradores", e:"🏘️", n:"Moradores do entorno do galpão", q:"BP_AI",
+  t:"Cerca de <strong>60 famílias</strong> nas ruas vizinhas. Convivem com caminhões de madrugada, motos estacionadas nas calçadas e barulho nas trocas de turno. No ano passado, fizeram um <strong>abaixo-assinado</strong> à prefeitura, que ainda não respondeu. Nenhum deles trabalha na Ligeira.",
+  j:"Sem meios de pressão efetivos (ainda); a rotina deles depende do galpão."},
+ {id:"associacao", e:"✊", n:"Associação de entregadores", q:"BP_AI", mover:true,
+  t:"Representa entregadores de várias plataformas da região e tem cerca de <strong>200 associados</strong>, dos quais <strong>30</strong> trabalham para a Ligeira. Em 2025, organizou uma paralisação de um dia que atrasou <strong>2 mil entregas</strong>.",
+  j:"Poder episódico (a paralisação); interesse direto. Candidata a mudar de quadrante."}
+];
+const HOUR_S = S.filter(s=>!s.ceo);
+
+const EVENTS = [
+ {g:1, t:"O vídeo", x:"Numa quinta-feira à noite, um entregador da Ligeira sofre um acidente de moto na BR-470, em Blumenau. Não corre risco de vida, mas vai ficar três meses sem trabalhar. Um colega grava o atendimento e publica o vídeo com uma denúncia. O aplicativo da Ligeira reduz a pontuação de quem atrasa mais de <strong>30 minutos</strong>, e entregadores com pontuação baixa recebem menos corridas. Em 48 horas, o vídeo tem <strong>2 milhões de visualizações</strong>. A associação de entregadores convoca uma paralisação por tempo indeterminado, e um jornal pede entrevista com Beatriz.",
+  m:"Associação: de baixo para alto poder.", d:"Uma regra do algoritmo (G) gerou um custo pago pelo entregador (S). A crise deu voz a quem não tinha."},
+ {g:2, t:"O inquérito", x:"A prefeitura nunca respondeu ao abaixo-assinado, então os moradores procuraram o Ministério Público de Santa Catarina. Um promotor abre um inquérito sobre o ruído noturno e o uso das calçadas pelo galpão da Ligeira, e um vereador do bairro leva o caso à Câmara de Vereadores de Blumenau. Se o inquérito prosperar, o galpão pode perder a autorização para funcionar de madrugada, justamente o turno em que se preparam <strong>60% das entregas</strong> do dia seguinte.",
+  m:"Moradores: de baixo para alto poder.", d:"Quem não tem poder busca quem tem. Ignorar o abaixo-assinado saiu caro. É a Braskem em miniatura."},
+ {g:3, t:"A Entrega Limpa", x:"A Lume Varejo lança uma campanha nova. Na tela de pagamento do site, o cliente escolhe entre a <strong>Entrega Limpa</strong>, feita em veículo elétrico, e a entrega expressa, mais rápida. A Entrega Limpa só aparece para quem mora em bairro onde há quem a faça, e quem a faz é uma das outras duas empresas de logística que atendem a Lume, que começou a trocar a frota no ano passado. Em março eram três bairros, e a Ligeira deixou de fazer <strong>60 entregas por dia</strong>. Em abril foram sete bairros e <strong>130 entregas por dia</strong>. A Lume não pediu nada à Ligeira.",
+  m:"Lume: de baixo para alto interesse.", d:"A pressão ambiental chega pelo cliente final, não pelo regulador. Reduzir a externalidade (E) deixa de ser custo e vira condição de permanecer na carteira."},
+ {g:4, t:"O gigante", x:"Uma grande plataforma de comércio eletrônico lança um serviço de entrega no mesmo dia para pequenos lojistas da região, com preços <strong>20% menores</strong> que os da Ligeira e seis meses de frete grátis para quem aderir. Em duas semanas, <strong>cinco lojistas</strong> da carteira da Ligeira avisam que vão testar o serviço novo.",
+  m:"Lojistas: de alto para baixo interesse.", d:"O interesse também diminui. Com alternativas, os lojistas dependem menos, e a Ligeira fica mais dependente da Lume."},
+ {g:5, t:"A Black Friday", x:"Faltam três semanas para a Black Friday, e a Ligeira prevê o <strong>triplo do volume</strong> normal. O comércio eletrônico da região inteira está contratando para galpões, e as indústrias também. As agências de trabalho temporário não têm mais gente para oferecer. Numa troca de turno, os <strong>12 empregados</strong> do galpão entregam a Beatriz uma carta assinada por todos. Pedem adicional noturno maior e um intervalo de descanso nos turnos de pico. “Se não der, não dá para garantir a Black Friday”, diz o líder de turno.",
+  m:"Equipe do galpão: de baixo para alto poder.", d:"O poder depende do contexto: a escassez muda o jogo. Tratar bem na calmaria é gerir o risco da tempestade."}
+];
+
+/* ---------- estado ---------- */
+const BASE = "ligeira-sul-modulo-1";
+let group = null;
+try{ const g = localStorage.getItem(BASE+"-grupo"); if(g) group = +g; }catch(e){}
+let unlocked = false;
+try{ unlocked = localStorage.getItem(BASE+"-prof")==="1"; }catch(e){}
+function blank(){ return {r1:{}, r2:{}, ev:null, r3:{}, r3h:{}}; }
+let state = blank();
+function load(){
+  state = blank();
+  if(!group) return;
+  try{ const raw = localStorage.getItem(`${BASE}-g${group}`); if(raw) state = Object.assign(blank(), JSON.parse(raw)); }catch(e){}
+}
+function save(){ if(!group) return; try{ localStorage.setItem(`${BASE}-g${group}`, JSON.stringify(state)); }catch(e){} }
+function saveProf(){ try{ localStorage.setItem(BASE+"-prof", unlocked?"1":"0"); }catch(e){} }
+load();
+const sel = {r1:null, r3:null};
+const byId = id => S.find(s=>s.id===id);
+
+/* ---------- cartões ---------- */
+document.getElementById("cards").innerHTML = S.map(s=>`
+  <article class="card"><h3><span aria-hidden="true">${s.e}</span>${s.n}</h3><p>${s.t}</p></article>`).join("");
+
+/* ---------- matriz ---------- */
+function buildMatrix(key){
+  const wrap = document.querySelector(`[data-matrix="${key}"]`);
+  wrap.innerHTML = `
+    <div class="tray" data-q="tray">
+      <p class="tray-label">Ainda sem posição. Toque num stakeholder e depois no quadrante (ou arraste).</p>
+      <div class="chips"></div>
+    </div>
+    <p class="status" aria-live="polite"></p>
+    <div class="matrix">
+      <div class="axis-y"><small>baixo</small>Poder<small>alto</small></div>
+      <div class="grid">
+        ${QUAD_ORDER.map(q=>`<div class="quad" data-q="${q}" tabindex="0" role="button" aria-label="Posicionar em ${QUADS[q].name}">
+          <div><span class="qname">${QUADS[q].name}</span><span class="qsub">${QUADS[q].sub}</span></div>
+          <div class="chips"></div></div>`).join("")}
+      </div>
+      <div class="axis-x"><small>baixo</small>Interesse<small>alto</small></div>
+    </div>`;
+  wrap.querySelectorAll("[data-q]").forEach(el=>{
+    const q = el.dataset.q;
+    const act = ()=>{ if(sel[key]) place(key, sel[key], q); };
+    el.addEventListener("click", act);
+    el.addEventListener("keydown", e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); act(); } });
+    el.addEventListener("dragover", e=>{ e.preventDefault(); el.classList.add("drop"); });
+    el.addEventListener("dragleave", ()=>el.classList.remove("drop"));
+    el.addEventListener("drop", e=>{ e.preventDefault(); el.classList.remove("drop"); const id=e.dataTransfer.getData("text/plain"); if(id) place(key,id,q); });
+  });
+}
+function renderMatrix(key){
+  const wrap = document.querySelector(`[data-matrix="${key}"]`);
+  wrap.querySelectorAll(".chips").forEach(c=>c.innerHTML="");
+  let placed = 0;
+  S.forEach(s=>{
+    const q = state[key][s.id];
+    if(q) placed++;
+    const target = wrap.querySelector(`[data-q="${q||"tray"}"] .chips`);
+    const b = document.createElement("button");
+    b.type="button"; b.className="chip"; b.draggable=true; b.dataset.id=s.id;
+    b.innerHTML = `<span aria-hidden="true">${s.e}</span> ${s.n}`;
+    if(sel[key]===s.id){ b.classList.add("sel"); b.setAttribute("aria-pressed","true"); } else b.setAttribute("aria-pressed","false");
+    if(key==="r1" && unlocked && q) b.classList.add(q===s.q?"ok":"nok");
+    if(key==="r3" && q && state.r1[s.id] && q!==state.r1[s.id]) b.classList.add("sel");
+    b.addEventListener("click", e=>{ e.stopPropagation(); sel[key] = sel[key]===s.id ? null : s.id; renderMatrix(key); });
+    b.addEventListener("dragstart", e=>{ e.dataTransfer.setData("text/plain", s.id); });
+    target.appendChild(b);
+  });
+  const st = wrap.querySelector(".status");
+  st.textContent = sel[key] ? `Agora toque no quadrante para posicionar: ${byId(sel[key]).n}.` : `${placed} de ${S.length} stakeholders posicionados.`;
+  wrap.querySelector(".tray").classList.toggle("hidden", placed===S.length && !sel[key]);
+}
+function place(key,id,q){
+  if(q==="tray") delete state[key][id]; else state[key][id]=q;
+  sel[key]=null; save(); renderMatrix(key); renderSummary();
+}
+
+/* ---------- horas ---------- */
+function renderHours(key){
+  const box = document.querySelector(`[data-hours="${key}"]`);
+  const h = state[key];
+  const total = HOUR_S.reduce((a,s)=>a+(h[s.id]||0),0);
+  const msg = total===40 ? "As 40 horas estão distribuídas." : `Faltam ${40-total} horas para distribuir.`;
+  box.innerHTML = `<div class="total ${total===40?"full":""}"><strong>${total}</strong><span>de 40 horas</span><span class="msg" aria-live="polite">${msg}</span></div>` +
+    HOUR_S.map(s=>{ const v=h[s.id]||0; return `<div class="hrow">
+      <span class="hname"><span aria-hidden="true">${s.e}</span> ${s.n}</span>
+      <span class="stepper"><button type="button" data-id="${s.id}" data-d="-1" aria-label="Menos uma hora para ${s.n}" ${v<=0?"disabled":""}>−</button>
+      <output aria-label="Horas de ${s.n}">${v}</output>
+      <button type="button" data-id="${s.id}" data-d="1" aria-label="Mais uma hora para ${s.n}" ${total>=40?"disabled":""}>+</button></span>
+      <span class="bar" aria-hidden="true"><span style="width:${v/40*100}%"></span></span></div>`; }).join("");
+  box.querySelectorAll("button[data-d]").forEach(b=>b.addEventListener("click",()=>{
+    const id=b.dataset.id, d=+b.dataset.d;
+    const cur=state[key][id]||0, tot=HOUR_S.reduce((a,s)=>a+(state[key][s.id]||0),0);
+    if(d>0 && tot>=40) return; if(d<0 && cur<=0) return;
+    state[key][id]=cur+d; save(); renderHours(key); renderSummary();
+    const again = document.querySelector(`[data-hours="${key}"] button[data-id="${id}"][data-d="${d}"]`); if(again && !again.disabled) again.focus();
+  }));
+}
+
+/* ---------- envelopes ---------- */
+function renderEnvelopes(){
+  const box=document.getElementById("envelopes");
+  if(!group){ box.innerHTML=""; return; }
+  const opened = state.ev===group;
+  box.innerHTML = `<button type="button" class="env ${opened?"chosen":""}" id="env-btn" ${opened?"disabled":""}>
+      <strong>Envelope do Grupo ${group}</strong><span>${opened?"Envelope aberto":"Toque para abrir"}</span></button>`;
+  if(!opened) document.getElementById("env-btn").addEventListener("click",()=>{
+    if(!confirm("Abrir o envelope agora? Façam isso só quando o professor autorizar.")) return;
+    state.ev=group;
+    if(Object.keys(state.r3).length===0) state.r3 = Object.assign({}, state.r1);
+    if(Object.keys(state.r3h).length===0) state.r3h = Object.assign({}, state.r2);
+    save(); renderEvent();
+  });
+}
+function renderEvent(){
+  renderEnvelopes();
+  const area=document.getElementById("event-area");
+  if(!state.ev){ area.classList.add("hidden"); return; }
+  const ev=EVENTS.find(e=>e.g===state.ev);
+  document.getElementById("event-text").innerHTML = `<h3>${ev.t}</h3><p>${ev.x}</p>`;
+  area.classList.remove("hidden");
+  renderMatrix("r3"); renderHours("r3h"); renderSummary();
+}
+document.getElementById("recopy").addEventListener("click",()=>{
+  if(!confirm("Copiar de novo a matriz da rodada 1 e as horas da rodada 2?")) return;
+  state.r3 = Object.assign({}, state.r1); state.r3h = Object.assign({}, state.r2); save(); renderEvent();
+});
+
+/* ---------- resumo ---------- */
+function qlist(map, compare){
+  return `<dl class="qlist">${QUAD_ORDER.map(q=>{
+    const names = S.filter(s=>map[s.id]===q).map(s=>{ const moved = compare && compare[s.id] && compare[s.id]!==q; return moved?`<span class="moved">${s.n}</span>`:s.n; });
+    return `<dt>${QUADS[q].name}</dt><dd>${names.length?names.join(", "):"—"}</dd>`; }).join("")}</dl>`;
+}
+function renderSummary(){
+  const box=document.getElementById("summary");
+  const hasR1 = Object.keys(state.r1).length>0;
+  if(!hasR1){ box.innerHTML = `<p class="note">O resumo aparece aqui assim que o grupo começar a posicionar os stakeholders na rodada 1.</p>`; return; }
+  const ev = state.ev ? EVENTS.find(e=>e.g===state.ev) : null;
+  let html = `<div class="compare"><div><h3>Antes do evento</h3>${qlist(state.r1)}</div>` +
+    (ev?`<div><h3>Depois: ${ev.t}</h3>${qlist(state.r3, state.r1)}</div>`:`<div><h3>Depois do evento</h3><p class="note">Abram o envelope na rodada 3.</p></div>`) + `</div>`;
+  html += `<div class="table-scroll"><table class="htable"><thead><tr><th>Stakeholder</th><th class="num">Antes</th><th class="num">Depois</th><th class="num">Diferença</th></tr></thead><tbody>` +
+    HOUR_S.map(s=>{ const a=state.r2[s.id]||0, b=ev?(state.r3h[s.id]||0):null; const d=b===null?null:b-a;
+      return `<tr><td>${s.e} ${s.n}</td><td class="num">${a}</td><td class="num">${b===null?"—":b}</td><td class="num ${d>0?"up":d<0?"down":""}">${d===null?"—":(d>0?"+"+d:d)}</td></tr>`; }).join("") +
+    `</tbody></table></div>`;
+  box.innerHTML = html;
+}
+
+/* ---------- gabarito e notas ---------- */
+function renderAnswers(){
+  if(!unlocked) return;
+  document.getElementById("lock").classList.add("hidden");
+  const a=document.getElementById("answers"); a.classList.remove("hidden");
+  a.innerHTML = `<h3>Gabarito</h3><p class="note">Critério: o poder mede quanto a Ligeira depende do stakeholder; o interesse, quanto a vida dele depende do que a Ligeira faz. Os stakeholders em verde na matriz acima estão na posição do gabarito; em vermelho, não. Nenhum stakeholder ficou em Monitorar: isso diz algo sobre a Ligeira?</p>
+  <div class="table-scroll"><table><thead><tr><th>Stakeholder</th><th>Quadrante</th><th>Justificativa</th></tr></thead><tbody>` +
+   S.map(s=>`<tr><td>${s.e} ${s.n}</td><td>${QUADS[s.q].sub}${s.debate?'<span class="tag">em debate</span>':""}${s.mover?'<span class="tag">pode mudar</span>':""}</td><td>${s.j}</td></tr>`).join("") +
+   `</tbody></table></div>`;
+  document.getElementById("professor").classList.remove("hidden");
+  document.getElementById("prof-notes").innerHTML = `<div class="table-scroll"><table><thead><tr><th>Evento</th><th>Movimento esperado</th><th>Ponto de discussão</th></tr></thead><tbody>` +
+   EVENTS.map(e=>`<tr><td>${e.g}. ${e.t}</td><td>${e.m}</td><td>${e.d}</td></tr>`).join("") + `</tbody></table></div>
+   <div class="row-actions"><button class="btn ghost" type="button" id="relock">Fechar o gabarito</button></div>`;
+  document.getElementById("relock").addEventListener("click",()=>{ unlocked=false; saveProf(); location.reload(); });
+  renderMatrix("r1");
+}
+document.getElementById("show-lock").addEventListener("click",()=>{ const l=document.getElementById("lock"); l.classList.toggle("hidden"); if(!l.classList.contains("hidden")) document.getElementById("code").focus(); });
+function tryUnlock(){
+  const v=document.getElementById("code").value.trim();
+  if(v===PROF_CODE){ unlocked=true; saveProf(); renderAnswers(); renderLiberacao(); }
+  else document.getElementById("lock-err").textContent="Código incorreto. Confira com o professor.";
+}
+document.getElementById("unlock").addEventListener("click", tryUnlock);
+document.getElementById("code").addEventListener("keydown", e=>{ if(e.key==="Enter") tryUnlock(); });
+
+/* ---------- limpar ---------- */
+document.querySelectorAll("[data-reset]").forEach(b=>b.addEventListener("click",()=>{
+  const k=b.dataset.reset;
+  if(!confirm(k==="r1"?"Limpar todas as posições da matriz?":"Zerar todas as horas?")) return;
+  state[k]={}; save(); if(k==="r1") renderMatrix("r1"); else renderHours("r2"); renderSummary();
+}));
+
+/* =====================================================================
+   CAPÍTULO 2 · VALORES
+   Personagens, empresas e valores em reais são fictícios ou ilustrativos.
+   Único fato real: a Lei 14.611/2023 (dilema 2).
+   ===================================================================== */
+const BASE2 = "ligeira-sul-modulo-2";
+const NGROUPS = 5; /* número de grupos; os dilemas se repetem se passar de 5 */
+
+const DILEMAS = [
+ { n:1, titulo:"O cliente que não pode ser punido",
+   ctx:[
+    "Era sexta-feira, pouco depois das sete da noite, quando <strong>Valdirene Souza</strong> pediu para falar com Beatriz de porta fechada. Tinha 29 anos e era líder de turno no galpão da Itoupava Norte. Era o primeiro emprego com carteira assinada da vida dela, e ela nunca havia pedido uma conversa assim. Trazia uma folha impressa e não sabia onde pôr as mãos.",
+    "Nas três últimas visitas de <strong>Fábio Leite</strong>, diretor de operações da Lume, ao galpão, ele fez comentários sobre o corpo de Valdirene diante da equipe, sempre rindo, sempre em tom de brincadeira. Na última, enquanto ela explicava o fluxo da conferência, ele pôs a mão na cintura dela e só tirou quando ela deu um passo para trás. Na semana passada, começaram as mensagens depois das dez da noite. Eram convites para jantar e uma frase que ela imprimiu e sublinhou duas vezes, a de que <span class=\"say\">“o relacionamento entre as empresas fica mais fácil quando as pessoas são simpáticas”</span>. A última dizia apenas <span class=\"say\">“Pensa com carinho. Sexta eu tô aí.”</span> Dois colegas de turno confirmaram por escrito o que presenciaram. Valdirene registrou a queixa no canal de denúncias.",
+    "Beatriz abriu o Código de Conduta que ela mesma havia publicado em março. A regra é explícita. Assédio com testemunhas leva a medidas imediatas, vale para todos, inclusive clientes e fornecedores, e prevê comunicar o fato à empresa do autor. Sem exceção por cargo. Sem exceção por tamanho de contrato.",
+    "Na sexta-feira que vem, Fábio volta ao galpão para a revisão trimestral. É a reunião em que a Lume decide quanto volume cada fornecedor vai receber no próximo trimestre. A Lume responde por <strong>40% da receita</strong> da Ligeira, e as outras duas empresas de entrega que ela usa estão famintas por esse volume.",
+    "Tiago, que conhece Fábio há dez anos, ouviu tudo sem interromper. Depois falou como quem já tinha a solução pronta. <span class=\"say\">“O Fábio é assim, não é má pessoa. Faz o seguinte. A Valdirene ganha a promoção a supervisora que ela merece, com aumento, e assina um termo retirando a queixa e se comprometendo a não tocar mais no assunto. Os dois colegas a gente chama e explica que isso fica entre nós. Na sexta, quem recebe o Fábio sou eu, e ela folga. E esse registro no canal, Diego, você apaga. Formalmente, não aconteceu nada ainda. Ninguém sai machucado, e a gente segura o maior contrato que tem.”</span>",
+    "Diego levantou os olhos do notebook. <span class=\"say\">“Apagar do canal?”</span> Tiago nem se virou. <span class=\"say\">“Você criou o sistema. Sabe fazer.”</span>",
+    "Valdirene não tinha pedido a cabeça de ninguém. Tinha dito que não queria criar problema, só não queria ter medo de ir trabalhar. E tinha dito mais uma coisa, baixinho, já com a mão na maçaneta. Se nada mudasse, pediria demissão. No galpão, os 12 empregados já sabem que ela falou com Beatriz. Na segunda de manhã, Beatriz vai ter de chamá-la de volta à sala. Ainda não sabe o que vai dizer."
+   ]},
+
+ { n:2, titulo:"Corrigir agora pode quebrar a empresa",
+   ctx:[
+    "Beatriz passou duas semanas, à noite, cruzando a folha de pagamento do galpão com cargos, tempo de casa e avaliações. Queria ter certeza do que estava vendo antes de dizer qualquer coisa. Tinha.",
+    "As <strong>6 mulheres</strong> que trabalham em funções equivalentes às dos homens, na triagem, na conferência e na liderança de turno, recebem entre <strong>22% e 35% menos</strong>. Não há avaliação de desempenho que explique a diferença, nem critério registrado em lugar algum. O caso que Beatriz não conseguia tirar da cabeça era o de <strong>Rosângela</strong>, 44 anos, conferente há cinco anos, que recebe <strong>R$ 2.150</strong> por mês. <strong>Anderson</strong>, conferente há dois, recebe <strong>R$ 2.790</strong>. Foi Rosângela quem treinou Anderson no primeiro mês dele. A explicação que Beatriz encontrou foi a de sempre. Contratados em épocas diferentes, cada um negociou de um jeito.",
+    "Corrigir tudo custa <strong>R$ 105 mil por ano</strong>, com encargos. Diego abriu o balanço ao lado. Havia <strong>R$ 400 mil</strong> em caixa. E havia o upgrade do aplicativo que a Lume exigiu para manter o contrato, com rastreamento em tempo real, de <strong>R$ 350 mil</strong> nos próximos quatro meses. Sem ele, a Lume troca de fornecedor em trinta dias, e ela é 40% da receita. Com os salários corrigidos desde já, o caixa chegaria ao fim do quarto mês com menos do que uma folha mensal. Se a Lume sair, as primeiras demitidas seriam justamente as funções do galpão.",
+    "Tiago lembrou que a lei de igualdade salarial, de 2023, obriga a publicar relatório de transparência apenas as empresas com 100 empregados ou mais. A Ligeira tem 19. E foi além. <span class=\"say\">“Ninguém vai cobrar isso da gente. E tem um jeito de resolver no papel. A gente reorganiza os cargos. Os homens viram ‘operador logístico II’, as mulheres continuam ‘auxiliar de triagem’. Cargo diferente, salário diferente, acabou a diferença. Se alguma vier reclamar, a gente corrige aquela, caso a caso, e pede discrição. E essa planilha, Beatriz, é melhor não circular.”</span>",
+    "Diego franziu a testa. <span class=\"say\">“Mudar o nome do cargo e deixar o trabalho igual?”</span> Tiago deu de ombros. <span class=\"say\">“É estrutura de cargos. Empresa grande faz isso o tempo todo. A gente está tentando sobreviver, não ganhar prêmio.”</span>",
+    "Beatriz pensou em Rosângela ensinando Anderson a usar o leitor de código de barras no primeiro dia. A reunião de orçamento é na quinta-feira. Até lá, ela precisa saber o que vai propor, e com que dinheiro."
+   ]},
+
+ { n:3, titulo:"A conversa que Diego não consegue ter",
+   ctx:[
+    "<strong>Renato Tavares</strong> é diretor comercial da Enxaimel Frotas e amigo de Diego desde os tempos da FURB. Foi ele quem reservou para a Ligeira as primeiras vans, quando a fila era de meses e ninguém apostava numa empresa daquele tamanho. E foi ele quem segurou por 90 dias o pagamento da Ligeira durante a pandemia, quando qualquer outra locadora teria rompido o contrato. Anos depois, numa mesa de bar, Renato confessou a Diego que tinha feito aquilo sem autorização da diretoria e que, se descobrissem, perderia o emprego.",
+    "Na semana passada, Renato mandou a proposta de renovação. Beatriz a analisou linha por linha. Havia um reajuste de <strong>18% ao ano</strong> pelos próximos três anos e uma cláusula de <strong>exclusividade de cinco anos</strong>. Na planilha dela, a margem das entregas volumosas desaparecia no segundo ano. A Ligeira cresceria em volume e perderia em caixa.",
+    "<span class=\"say\">“Você precisa recusar e renegociar do zero”</span>, disse Beatriz. Diego sabe que ela está certa. Sabe também que Renato escreveu aquela proposta acreditando que a amizade garantiria o sim. E a Enxaimel é uma das poucas locadoras da região que trabalha nas condições de pagamento que a Ligeira consegue sustentar. Se Renato se magoar e redirecionar a carteira, a Ligeira fica sem alternativa. Beatriz viaja amanhã cedo para visitar um cliente em Joinville. O almoço com Renato, às 14h, é de Diego, e ele estará sozinho.",
+    "Tiago ligou às dez da noite. <span class=\"say\">“Escuta. Aquele atraso de 90 dias na pandemia, o Renato segurou sem a diretoria dele saber. Você me contou, lembra? Então amanhã você chega e diz, com calma, que se o reajuste não cair pela metade e a exclusividade não sair, essa história pode chegar à diretoria da Enxaimel. Ele baixa na hora. Antes, o jurídico manda uma carta dizendo que a gente tem proposta de outra locadora. Não tem, mas ele não sabe.”</span>",
+    "<span class=\"say\">“Isso é chantagem, Tiago.”</span> <span class=\"say\">“É negociação. Ele montou um contrato para quebrar a gente contando com a amizade. Quem usou a amizade primeiro foi ele. Eu só estou te ensinando a jogar o mesmo jogo.”</span>",
+    "Diego desligou e ficou olhando o celular. Ainda tinha o número do Renato salvo com um apelido da faculdade. A última mensagem dele, de manhã, dizia <span class=\"say\">“Amanhã a gente comemora a renovação 🍻”</span>."
+   ]},
+
+ { n:4, titulo:"O seguro que ninguém sabia que não existia",
+   ctx:[
+    "Era quarta-feira, perto das onze da noite, quando a corretora de seguros ligou para Beatriz. <strong>Wellington Ramos</strong>, 38 anos, pai de dois filhos, entregador da Ligeira havia três anos, caíra da moto na Avenida Santos Dumont, em Joinville, naquela tarde. Teve fratura exposta na perna, passou por cirurgia de emergência e vai ficar ao menos três meses sem trabalhar. A seguradora negou a cobertura. O nome dele não constava na apólice.",
+    "Beatriz foi atrás e passou a madrugada no sistema. Cinco meses antes, na renovação, a corretora não havia incluído os cadastros novos, e ninguém na Ligeira conferiu. Dos <strong>220 entregadores</strong>, só <strong>70</strong> estavam cobertos. Os outros <strong>150</strong> rodavam pela região todos os dias acreditando estar protegidos. O contrato com a Lume diz que todos os entregadores têm seguro contra acidentes. A Lume não sabe. Os entregadores não sabem. Sabem Beatriz, Diego, Tiago e a corretora.",
+    "A cláusula de descumprimento permite à Lume reter pagamentos e até rescindir o contrato. Dois meses retidos seriam cerca de <strong>R$ 315 mil</strong>, quase todo o caixa de R$ 400 mil. Para 40% dos entregadores, a Ligeira é a principal fonte de renda.",
+    "Na manhã seguinte, Tiago chegou com tudo resolvido. <span class=\"say\">“Já falei com a corretora. Ela tem um conhecido na seguradora e consegue incluir o Wellington na apólice com data de três meses atrás. A seguradora paga, a família fica amparada e ninguém percebe. Os outros 149 a gente inclui aos poucos, sem alarde, ao longo do mês. Para a Lume, nada muda. O contrato diz que todos têm seguro, e daqui a trinta dias vai ser verdade. E para os entregadores, nem uma palavra. Se eles souberem que rodaram cinco meses descobertos, a associação para a região inteira.”</span>",
+    "<span class=\"say\">“Isso é fraude contra a seguradora”</span>, disse Beatriz. <span class=\"say\">“É corrigir um erro de cadastro que não foi nosso”</span>, respondeu Tiago. <span class=\"say\">“E se outro cair nesses trinta dias?”</span> Tiago olhou para ela como quem explica o óbvio. <span class=\"say\">“Em trinta dias? As chances são pequenas. As chances de a Lume reter o pagamento se você contar são de cem por cento.”</span> Diego ficou calado.",
+    "Às 23h40 daquela noite, a mulher de Wellington, <strong>Josiane</strong>, mandou uma mensagem para o celular de Beatriz. Queria saber se podia confiar que a Ligeira ia cuidar do marido dela, e se o seguro cobria a fisioterapia."
+   ]},
+
+ { n:5, titulo:"O que a Larissa não deveria ter visto",
+   ctx:[
+    "<strong>Larissa Prado</strong>, 27 anos, é uma das quatro pessoas da equipe de tecnologia da Ligeira. Na quinta-feira, revisando a rotina de repasse a entregadores a pedido de Diego, encontrou algo que não constava em nenhuma documentação. Era uma regra chamada “ajuste por dependência”. O algoritmo identifica, pelo padrão de uso do aplicativo, quem trabalha só para a Ligeira e reduz em até <strong>12%</strong> o que essa pessoa recebe por entrega. Larissa fez um teste. A mesma entrega, no mesmo horário, pagava <strong>R$ 9,00</strong> a um entregador que também roda para outras plataformas e <strong>R$ 7,92</strong> a um que só roda para a Ligeira. A alteração tinha três meses e fora feita por Diego. A anotação dizia “pedido do Tiago”.",
+    "A regra afeta cerca de <strong>90 entregadores</strong>, justamente aqueles para quem a Ligeira é a principal fonte de renda, e rende à empresa algo como <strong>R$ 17 mil por mês</strong>. Nenhum deles sabe que ela existe.",
+    "Larissa lembrou do canal de denúncias que Beatriz havia lançado três semanas antes. O material dizia que as denúncias eram anônimas e protegidas. Mas ela sabe que Diego, seu chefe direto e quem escreveu a regra, administra os servidores onde os registros do canal ficam guardados. E que o sistema anota quem abre cada arquivo. Naquela mesma tarde, Diego perguntou no grupo da equipe quem tinha mexido na rotina de repasse.",
+    "Na sexta, ao passar pela sala de reuniões com a porta entreaberta, Larissa ouviu a voz de Tiago. <span class=\"say\">“Oferece a ela um bônus e um termo de confidencialidade. Se não assinar, a gente encontra um motivo de desempenho. E apaga o histórico de acesso daquele arquivo.”</span> Ela não ouviu a resposta de Diego. Seguiu andando sem olhar para dentro.",
+    "Dois colegas de tecnologia saíram no ano passado para empresas que pagam até 40% mais. Larissa tem ofertas. Poderia simplesmente ir embora. Não sabe se isso ajuda ou piora.",
+    "Esta manhã, chegou uma mensagem de Tiago. <span class=\"say\">“Larissa, passa na minha sala amanhã às 9h. Quero conversar sobre o seu futuro aqui.”</span> Em dois anos, ela nunca tinha sido chamada à sala dele."
+   ]}
+];
+
+/* ---------- capítulo 2: estado ---------- */
+let group2 = null;
+try{ const g = localStorage.getItem(BASE2+"-grupo"); if(g) group2 = +g; }catch(e){}
+function blank2(){ return {open:false}; }
+let st2 = blank2();
+function load2(){
+  st2 = blank2();
+  if(!group2) return;
+  try{ const raw = localStorage.getItem(`${BASE2}-g${group2}`); if(raw){ const o = JSON.parse(raw); st2.open = !!o.open; } }catch(e){}
+}
+function save2(){ if(!group2) return; try{ localStorage.setItem(`${BASE2}-g${group2}`, JSON.stringify(st2)); }catch(e){} }
+load2();
+const dilemaDoGrupo = () => DILEMAS[(group2-1) % DILEMAS.length];
+
+function renderGroups2(){
+  const box = document.getElementById("groups2");
+  box.innerHTML = Array.from({length:NGROUPS},(_,i)=>i+1).map(n=>`<button type="button" class="gbtn2" data-g2="${n}" aria-pressed="${group2===n}">Grupo ${n}</button>`).join("");
+  box.querySelectorAll("[data-g2]").forEach(b=>b.addEventListener("click",()=>{
+    const n=+b.dataset.g2; if(n===group2) return;
+    if(group2 && !confirm(`Trocar para o Grupo ${n}?`)) return;
+    group2=n; try{ localStorage.setItem(BASE2+"-grupo", String(n)); }catch(e){}
+    load2(); renderDilema(); renderGroups2();
+  }));
+  document.getElementById("gnow2").textContent = group2 ? `Vocês estão trabalhando como Grupo ${group2}.` : "";
+  document.getElementById("dilema").classList.toggle("hidden", !group2);
+  document.getElementById("dilema-locked").classList.toggle("hidden", !!group2);
+}
+
+function renderDilema(){
+  const env = document.getElementById("envelopes2");
+  const area = document.getElementById("dilema-area");
+  if(!group2){ env.innerHTML=""; area.classList.add("hidden"); return; }
+  const d = dilemaDoGrupo();
+  document.getElementById("dilema-h2").textContent = `Dilema do Grupo ${group2}`;
+  env.innerHTML = `<button type="button" class="env ${st2.open?"chosen":""}" id="env2-btn" ${st2.open?"disabled":""}>
+    <strong>Envelope do Grupo ${group2}</strong><span>${st2.open?"Envelope aberto":"Toque para abrir"}</span></button>`;
+  if(!st2.open){
+    area.classList.add("hidden");
+    document.getElementById("env2-btn").addEventListener("click",()=>{ st2.open=true; save2(); renderDilema(); });
+    return;
+  }
+  area.classList.remove("hidden");
+  area.innerHTML = `<article class="dilema">
+    <h3 class="dt">${d.titulo}</h3>
+    ${d.ctx.map(p=>`<p>${p}</p>`).join("")}
+    <div class="gq"><h4>Para o grupo responder</h4>
+      <ol><li>Que valor está mais em evidência, sendo testado nesta situação?</li><li>O que deve ser feito?</li></ol>
+    </div>
+  </article>`;
+}
+function renderAula2(){ renderGroups2(); renderDilema(); }
+
+/* ---------- navegação ---------- */
+/* =====================================================================
+   LIBERAÇÃO DOS CAPÍTULOS POR DATA (horário de Brasília)
+   Cada capítulo abre à 0h do dia indicado. null = fechado, sem data.
+   No aparelho em que o professor digitou o código, todos ficam abertos.
+   ===================================================================== */
+const LIBERACAO = {
+  1: "2026-11-09",
+  2: "2026-11-10",
+  3: null,
+  4: null,
+  5: null
+};
+function capLiberado(n){
+  if(unlocked) return true;
+  const d = LIBERACAO[n];
+  return !!d && Date.now() >= new Date(d + "T00:00:00-03:00").getTime();
+}
+function renderLiberacao(){
+  for(let n=1;n<=5;n++){
+    const ok = capLiberado(n);
+    const a = document.querySelector(`.top nav a[data-view="capitulo-${n}"]`);
+    if(a) a.hidden = !ok;
+    const li = document.querySelector(`.chapters li[data-cap="${n}"]`);
+    if(li){
+      li.classList.toggle("open", ok);
+      const ct = li.querySelector(".ct"), titulo = ct.textContent;
+      li.innerHTML = li.querySelector(".cn").outerHTML + (ok
+        ? `<a class="ct" href="#capitulo-${n}">${titulo}</a>`
+        : `<span class="ct soon">${titulo}</span>`);
+    }
+  }
+}
+function route(){
+  const v = location.hash.replace("#","") || "inicio";
+  const ch2 = ["capitulo-2","grupo-2","dilema"];
+  const ch3 = ["capitulo-3","balizas","gabarito","segredo"];
+  const ch4 = ["capitulo-4","grupo-4","decisao-4"];
+  const ch5 = ["capitulo-5","retrospectiva-5","propostas-5","grupo-5","tarefa-5"];
+  const ch1 = ["stakeholders","grupo","rodada-1","rodada-2","rodada-3","resumo","professor"];
+  let view = ch5.includes(v) ? "capitulo-5" : ch4.includes(v) ? "capitulo-4" : ch3.includes(v) ? "capitulo-3" : ch2.includes(v) ? "capitulo-2" : (v.startsWith("capitulo-1") || ch1.includes(v)) ? "capitulo-1" : "inicio";
+  const nCap = view.startsWith("capitulo-") ? +view.split("-")[1] : 0;
+  if(nCap && !capLiberado(nCap)) view = "inicio";
+  renderLiberacao();
+  document.querySelectorAll(".view").forEach(el=>el.classList.toggle("hidden", el.id!==`view-${view}`));
+  document.querySelectorAll(".top nav a").forEach(a=>{ if(a.dataset.view===view) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  if(v==="inicio"||v==="capitulo-1"||v==="capitulo-2"||v==="capitulo-3"||v==="capitulo-4"||v==="capitulo-5") window.scrollTo(0,0); else { const t=document.getElementById(v); if(t) t.scrollIntoView(); }
+}
+window.addEventListener("hashchange", route);
+
+/* ---------- início ---------- */
+function renderGroups(){
+  document.getElementById("groups").innerHTML = [1,2,3,4,5].map(n=>`<button type="button" class="gbtn" data-g="${n}" aria-pressed="${group===n}">Grupo ${n}</button>`).join("");
+  document.querySelectorAll(".gbtn").forEach(b=>b.addEventListener("click",()=>{
+    const n=+b.dataset.g; if(n===group) return;
+    if(group && !confirm(`Trocar para o Grupo ${n}? As respostas do Grupo ${group} continuam salvas neste aparelho.`)) return;
+    group=n; try{ localStorage.setItem(BASE+"-grupo", String(n)); }catch(e){}
+    load(); sel.r1=null; sel.r3=null; renderAll();
+  }));
+  document.getElementById("gnow").textContent = group ? `Vocês estão trabalhando como Grupo ${group}.` : "";
+  document.getElementById("rounds").classList.toggle("hidden", !group);
+  document.getElementById("rounds-locked").classList.toggle("hidden", !!group);
+  document.getElementById("sum-title").textContent = group ? `Antes e depois: Grupo ${group}` : "Antes e depois";
+}
+function renderAll(){
+  renderGroups(); renderMatrix("r1"); renderHours("r2"); renderEvent(); renderSummary(); renderAnswers();
+}
+buildMatrix("r1"); buildMatrix("r3");
+renderAll();
+renderAula2();
+
+/* ---------- capítulo 3: trancas ---------- */
+/* Para trocar os códigos, altere as duas linhas abaixo. */
+const COD_GABARITO = "LIGEIRASUL";
+const COD_SEGREDO  = "LUMESUL";
+
+function tranca3(idBotao, idCaixa, idCampo, idErro, idConteudo, codigo){
+  const b = document.getElementById(idBotao);
+  const c = document.getElementById(idCaixa);
+  const i = document.getElementById(idCampo);
+  const e = document.getElementById(idErro);
+  const k = document.getElementById(idConteudo);
+  if(!b || !c || !i || !e || !k) return;
+  b.addEventListener("click", ()=>{
+    c.classList.toggle("hidden");
+    if(!c.classList.contains("hidden")) i.focus();
+  });
+  const tentar = ()=>{
+    if(i.value.trim().toUpperCase() === codigo){
+      k.classList.remove("hidden");
+      c.classList.add("hidden");
+      b.classList.add("hidden");
+      e.textContent = "";
+    } else {
+      e.textContent = "Código incorreto. Confira com o professor.";
+    }
+  };
+  c.querySelector("button").addEventListener("click", tentar);
+  i.addEventListener("keydown", ev=>{ if(ev.key==="Enter") tentar(); });
+}
+tranca3("abrir-gab","lock-gab","cod-gab","err-gab","gabarito-3", COD_GABARITO);
+tranca3("abrir-seg","lock-seg","cod-seg","err-seg","segredo-3", COD_SEGREDO);
+
+/* =====================================================================
+   CAPÍTULO 4 · O S DO ESG
+   Personagens, empresas e valores em reais são fictícios ou ilustrativos.
+   ===================================================================== */
+const BASE4 = "ligeira-sul-modulo-4";
+const NGROUPS4 = 5;
+
+const D4 = [
+ { n:1, titulo:"O ponto de apoio", p:[
+  "<strong>Celso Barreto</strong>, 47 anos, entregava para a Ligeira havia quatro anos. Numa tarde de 38 graus, desmaiou numa esquina do centro de Blumenau depois de nove horas sem achar água nem sombra. Nenhum restaurante da região deixa entregador usar o banheiro. Celso está internado em estado grave. Um vídeo feito por quem passava corre nos grupos de mensagem dos entregadores, e o verão está só começando.",
+  "<strong>Edvaldo Nunes</strong>, da associação, mandou uma carta a Beatriz pedindo um ponto de apoio com banheiro, água, sombra, lugar para sentar e carregar o celular. Dá 30 dias antes de procurar a imprensa. Rafael Tavares, da Lume, ligou no mesmo dia para perguntar o que a Ligeira oferece a quem entrega. Os investidores da Lume estão perguntando a ela.",
+  "Diego explicou por que não é simples. <span class=\"say\">“O galpão tem 850 metros quadrados, e todos estão ocupados com a triagem, que é onde os pacotes chegam e são separados por cidade e bairro. Tirar 75 daí custa 150 pedidos por dia, uns R$ 470 mil de receita por ano. Então ponto de apoio, só fora do galpão.”</span>",
+  "Beatriz fez a sua conta. <span class=\"say\">“Três pontos pequenos, um em Joinville, um em Blumenau e um no litoral, onde eles trabalham. Cerca de R$ 260 mil no primeiro ano, 65% da nossa reserva de R$ 400 mil. Mas é onde eles estão.”</span>",
+  "Diego apresentou outra. <span class=\"say\">“Um ponto só, ao lado do galpão. Aluguel de R$ 9 mil por mês e R$ 60 mil de reforma, R$ 168 mil no primeiro ano. Mas só serve a uns 50 dos 220, os que rodam em Blumenau.”</span>",
+  "Tiago não gostou de nenhuma. <span class=\"say\">“Trinta reais por entregador por mês, em dinheiro. São R$ 79 mil por ano. Cada um resolve onde quiser, e a gente respeita a autonomia de quem é autônomo.”</span> Diego completou com os fatos. <span class=\"say\">“Ninguém garante que o dinheiro vira banheiro e sombra. Uma parte vai para outra coisa.”</span>"
+ ]},
+
+ { n:2, titulo:"Quem não para de trabalhar", p:[
+  "<strong>Josué Pires</strong>, 41 anos, estava conectado havia quinze horas quando caiu da moto na BR-101, perto de Itajaí. Está em estado grave. A família procurou um advogado. O painel que Diego abriu depois mostra que, na semana anterior, 31 entregadores passaram de doze horas conectados em pelo menos três dias. Desses, 22 só trabalham para a Ligeira. Os 31 fazem cerca de 300 das 1.500 entregas do dia, uma em cada cinco.",
+  "Na Ligeira, o entregador ganha por entrega. Quem trabalha mais ganha mais. O questionário social que a Lume mandou aos fornecedores pergunta qual é a jornada máxima permitida no aplicativo, e a resposta hoje é nenhuma. Rafael avisou que, sem uma política em 15 dias, a Lume avalia suspender a Ligeira da Entrega Limpa. O critério dela dá pontos cheios a quem limita em dez horas e metade a quem limita em doze.",
+  "Beatriz foi a primeira. <span class=\"say\">“Dez horas. O médico que a associação consultou diz que o risco de acidente dobra depois disso. Eu não quero descobrir depois que a gente sabia.”</span> Diego fez o preço. <span class=\"say\">“Um bloqueio em dez horas faz a gente perder uns 100 pedidos por dia, quase R$ 315 mil de receita por ano. E os 22 que dependem só da gente perdem uns R$ 1.000 por mês de renda.”</span>",
+  "Diego tinha uma saída mais barata. <span class=\"say\">“Doze horas, com um adicional de R$ 0,50 por entrega aos 31 por seis meses, para a renda não despencar de uma vez. Perde uns 40 pedidos por dia, uns R$ 125 mil, mais R$ 27 mil do adicional. Mas a Lume só dá metade dos pontos, e o risco entre dez e doze horas continua.”</span>",
+  "Tiago foi o mais curto. <span class=\"say\">“Um aviso quando passar de doze horas e um termo de ciência assinado por cada um. Autônomo escolhe o próprio ritmo, e a gente deixa registrado que avisou. Não custa nada.”</span> Diego apontou o risco. <span class=\"say\">“Se um juiz entender que a gente sabia e deixou, o aviso vira prova contra nós.”</span>"
+ ]},
+
+ { n:3, titulo:"O cronômetro", p:[
+  "Duas semanas antes, <strong>Anderson</strong>, 29 anos, tinha deixado a bicicleta no chão ao lado da porta do galpão e dito a Beatriz que não aguentava mais. Pediu uma semana de folga. Ela perguntou quanto isso custaria a ele. <span class=\"say\">“A semana inteira. Vocês pagam por entrega.”</span> Beatriz não tinha como pagar a folga de um autônomo. Anderson voltou para a rua.",
+  "Na quinta passada, ele avançou o sinal numa faixa de pedestres e atingiu uma senhora de 70 anos, que está internada com fratura no fêmur. Na delegacia, disse que o aplicativo manda correr. Dormia quatro horas por noite havia semanas. O vídeo foi parar na imprensa, a Lume pediu explicações em 48 horas, e a associação diz que as regras adoecem quem entrega.",
+  "O aplicativo mostra uma contagem regressiva a cada pedido, e um atraso derruba a avaliação, que decide quem pega as melhores corridas. Foi Diego quem escreveu essas regras, para a Ligeira cumprir o prazo que a Lume cobra. A Lume paga um bônus de R$ 0,40 por entrega a quem mantém 95% das entregas no prazo. Hoje, 4% saem atrasadas.",
+  "Beatriz não escondeu o que sentia. <span class=\"say\">“Eu ouvi o Anderson e não fiz nada. Tira a parte punitiva do cronômetro.”</span> Diego fez a conta. <span class=\"say\">“Se eu tiro, os atrasos sobem para 7%, e a gente perde o bônus. São R$ 0,40 em 1.500 entregas por dia, uns R$ 219 mil por ano.”</span>",
+  "Diego também tinha uma saída intermediária. <span class=\"say\">“Afrouxo a contagem em dois minutos. Os atrasos vão para 4,8% e o bônus continua. E contrato uma psicóloga para o galpão, algumas horas por semana, uns R$ 15 mil por ano. Mas dois minutos ajudam pouco quem já está no limite, e ela só atende quem passa por lá. Se a família da senhora processar, a regra do cronômetro vai estar no processo com o meu nome.”</span>",
+  "Tiago foi rápido. <span class=\"say\">“A culpa foi dele, que furou o sinal. A gente contrata um aplicativo de terapia online, R$ 15 por pessoa, uns R$ 40 mil por ano, e mostra para a Lume que cuida da saúde mental. O cronômetro fica como está, porque é ele que paga o bônus.”</span>"
+ ]},
+
+ { n:4, titulo:"A vizinhança que quer dormir", p:[
+  "Às três da manhã, uma van da Ligeira bateu num carro estacionado na rua do galpão. Alguém gravou e publicou. <strong>Dona Zélia Barbosa</strong>, 71 anos, que fala em nome de 60 famílias, já tinha dito a Beatriz o que queria. <span class=\"say\">“Eu não quero que ninguém perca emprego, minha filha. Eu quero dormir.”</span> A associação de moradores protocolou na prefeitura um pedido de revisão da licença do galpão.",
+  "O galpão tem licença e está dentro dos limites de ruído. Nada ali é ilegal. Mas a revisão pode restringir o horário e acabar com o turno das 22h às 5h. É nesse turno que o galpão prepara 60% das entregas do dia seguinte, e dele depende 60% da receita de R$ 4,7 milhões, uns R$ 2,8 milhões por ano. Sete dos 12 empregados do galpão trabalham nele. <strong>Marcos Paulo</strong>, 26 anos, líder do turno, entregou a Beatriz um papel assinado pelos sete. <span class=\"say\">“O adicional noturno é a minha mensalidade.”</span> Sem o turno, cada um perde cerca de R$ 520 por mês.",
+  "Diego mediu o barulho da rua. <span class=\"say\">“Dos ruídos de madrugada, 35% são nossos, 40% são dos caminhões da Enxaimel Frotas, que tem pátio na mesma rua, e 25% são de um bar na esquina. O vídeo foi impulsionado por uma agência contratada pela Alto do Parque, que comprou os terrenos vizinhos para lançar torres. Isso não faz a queixa da Dona Zélia ser menos verdadeira.”</span>",
+  "Beatriz propôs o que podia fazer sozinha. <span class=\"say\">“Uma obra de isolamento no galpão. R$ 125 mil.”</span> Diego completou. <span class=\"say\">“Ela só reduz a nossa parte, os 35%. E a prefeitura pode achar pouco.”</span> Diego tinha outra. <span class=\"say\">“Mudar a entrada dos nossos caminhões para depois das 5h, sem custo. Mas o preparo atrasa, e as entregas da manhã saem mais tarde, o que pesa nos prazos que a Lume cobra. Eu pedi à Enxaimel que dividisse o problema. O dono respondeu que o barulho não é dele.”</span>",
+  "Tiago não se alterou. <span class=\"say\">“Pedido de revisão demora anos e quase nunca dá em nada. A gente contesta, ganha tempo, e a vizinha se cansa.”</span> Diego não escondeu o risco. <span class=\"say\">“Se a gente perder, perde o turno e os R$ 2,8 milhões.”</span>"
+ ]},
+
+ { n:5, titulo:"Quando o entregador envelhece", p:[
+  "<strong>Raimundo Alves</strong>, 52 anos, entrega para a Ligeira há seis anos. A dor na coluna piora a cada ano. O médico mandou parar por quatro meses. Raimundo nunca contribuiu para o INSS, porque ninguém exigiu e o dinheiro nunca sobrava, então não tem nenhum auxílio. Foi falar com Beatriz sem pedir nada. Só perguntou. <span class=\"say\">“Se eu parar, a empresa me espera quanto tempo?”</span>",
+  "Na mesma semana, a Verde Rota, concorrente da Ligeira, anunciou à imprensa um auxílio de saúde para o entregador que precisar parar. Duas semanas depois, 15 entregadores com mais de dois anos de casa pediram desligamento. Cada um responde por uns R$ 25 mil de receita por ano, no total perto de R$ 375 mil, antes de repor e treinar quem entrar. Mas Diego ainda não sabe quantos saíram por causa do auxílio. <span class=\"say\">“Seis disseram com todas as letras que foram para a Verde Rota. Dos outros nove eu não sei.”</span> A Ligeira já perde 15% dos entregadores por mês.",
+  "Nenhuma lei obriga a Ligeira a pagar a previdência de quem não é empregado.",
+  "Beatriz foi direta. <span class=\"say\">“Contribuição para os 220. Uns R$ 80 por pessoa por mês, R$ 211 mil por ano, 53% da nossa reserva. É o que a gente deve a quem sustenta a operação.”</span> O advogado da Ligeira avisou de outro risco. <span class=\"say\">“Dar benefício a quem é autônomo pode ser usado depois como argumento de vínculo.”</span>",
+  "Diego tinha um caminho menor. <span class=\"say\">“Só para quem tem 45 anos ou mais e mais de dois anos de casa. São uns 30, R$ 29 mil por ano. Mas deixa 190 de fora, incluindo os de 30 anos que também vão envelhecer, e eu não sei dizer se isso segura quem ia sair.”</span>",
+  "Tiago disse o que ia fazer. <span class=\"say\">“Anúncio é barato. A gente espera ver quantos usam o auxílio da Verde Rota e, se funcionar, copia. Se a gente abre isso agora, não fecha mais.”</span>"
+ ]}
+];
+
+/* ---------- estado do capítulo 4 ---------- */
+let group4 = null;
+try{ const g = localStorage.getItem(BASE4+"-grupo"); if(g) group4 = +g; }catch(e){}
+const d4 = () => D4[(group4-1) % D4.length];
+
+function renderGroups4(){
+  const box = document.getElementById("groups4");
+  box.innerHTML = Array.from({length:NGROUPS4},(_,i)=>i+1).map(n=>`<button type="button" class="gbtn2" data-g4="${n}" aria-pressed="${group4===n}">Grupo ${n}</button>`).join("");
+  box.querySelectorAll("[data-g4]").forEach(b=>b.addEventListener("click",()=>{
+    const n=+b.dataset.g4; if(n===group4) return;
+    group4=n; try{ localStorage.setItem(BASE4+"-grupo", String(n)); }catch(e){}
+    renderGroups4(); renderDilema4();
+    const alvo = document.getElementById("decisao-4"); if(alvo) alvo.scrollIntoView();
+  }));
+  document.getElementById("gnow4").textContent = group4 ? `Vocês estão trabalhando como Grupo ${group4}.` : "";
+  document.getElementById("decisao-4").classList.toggle("hidden", !group4);
+  document.getElementById("decisao-locked").classList.toggle("hidden", !!group4);
+}
+
+function renderDilema4(){
+  const area = document.getElementById("dilema4-area");
+  if(!group4){ area.innerHTML=""; return; }
+  const d = d4();
+  area.innerHTML = `<article class="dilema">
+    <p class="mes4">Grupo ${group4}</p>
+    <h3 class="dt">${d.titulo}</h3>
+    ${d.p.map(p=>`<p>${p}</p>`).join("")}
+    <p class="pergunta4">O que deve ser feito?</p>
+  </article>`;
+}
+
+renderGroups4();
+renderDilema4();
+
+/* =====================================================================
+   CAPÍTULO 5 · O G DO ESG
+   Consultorias, personagens e valores em reais são fictícios ou ilustrativos.
+   ===================================================================== */
+const BASE5 = "ligeira-sul-modulo-5";
+const NGROUPS5 = 3;
+
+const RETRO5 = [
+  `Num fim de tarde, Beatriz, Diego e Tiago pararam para olhar para trás. Nos últimos meses, a Ligeira viu entregadores se acidentarem e adoecerem, vizinhos pedirem para dormir, um cliente migrar aos poucos para a entrega elétrica e uma rotatividade que não para. Cada crise foi resolvida na hora, por quem estava na sala e tinha pressa. Ninguém sabia dizer, antes de cada decisão, quem decide o quê e como.`,
+  `Diego resumiu. <span class="say">“Não falta boa vontade. Falta regra escrita para cada área.”</span>`,
+  `Os três decidiram contratar uma consultoria ESG para escrever essas regras e pediram cotação ao mercado. Voltaram três propostas, cada uma organizada em governança, meio ambiente e relação com as pessoas.`
+];
+const INTRO5 = [
+  `A Ligeira fatura R$ 4,7 milhões por ano e tem R$ 400 mil em caixa. Cada proposta enfrenta os problemas da empresa em governança, meio ambiente e pessoas, e oferece uma oportunidade que vai além deles. O preço de cada proposta inclui tudo o que ela entrega, inclusive os profissionais externos que contrata. Os percentuais são calculados sobre o faturamento. Todos os valores são ilustrativos.`
+];
+
+const FAT5 = 4700; /* faturamento em R$ mil */
+
+const PROB5 = {
+  "Governança":"Problema. Decisões tomadas na hora, sem regra escrita por área, e um acordo de sócios que não diz com clareza como se decide.",
+  "Meio ambiente":"Problema. Frota 100% a combustão e um cliente que responde por 40% da receita migrando, bairro a bairro, para a entrega elétrica.",
+  "Pessoas":"Problema. Entregadores sem limite de jornada e sob a pressão do cronômetro, sem apoio durante o trabalho, e rotatividade de 15% ao mês.",
+  "Oportunidade":"O que a proposta oferece além dos problemas atuais, e que pode trazer benefício ao negócio."
+};
+
+/* itens: [descrição, ano 1, ano 2 em diante], em R$ mil */
+const P5 = [
+  { n:1, nome:"Alicerce Consultoria", tag:"Proposta básica",
+    resumo:"Escreve as cinco políticas e revisa os documentos dos sócios. A execução fica com a equipe da Ligeira.",
+    prazo:"3 meses", horas:"60 horas dos sócios e gestores no primeiro ano (5 por mês)", pagto:"2 parcelas, na assinatura e na entrega",
+    quem:"A consultoria entrega os textos. Beatriz e Diego implantam.",
+    promessa:"As cinco políticas escritas e publicadas em 90 dias.",
+    pilares:[
+      { nome:"Governança", itens:[
+        ["Cinco políticas escritas, uma por área (contratação e remuneração, decisão entre sócios, finanças e alçadas, compras e conflito de interesses, e tecnologia e propriedade intelectual)",28,0],
+        ["Revisão do contrato social e do acordo de sócios por advogado societário, com as regras de decisão e de saída",14,0],
+        ["Treinamento único de 4 horas para sócios e gestores nas cinco políticas",6,0],
+        ["Revisão anual das políticas",0,8] ]},
+      { nome:"Meio ambiente", itens:[
+        ["Inventário de emissões dos escopos 1 e 2 (galpão, escritório e energia)",8,3],
+        ["Mapa dos bairros da Lume com Entrega Limpa e levantamento de fornecedores de veículos elétricos",6,0] ]},
+      { nome:"Pessoas", itens:[
+        ["Política de jornada máxima no aplicativo, com alerta ao entregador, configurada pela equipe de Diego",5,0],
+        ["Pesquisa única de escuta com entregadores e empregados",5,0] ]},
+      { nome:"Oportunidade", itens:[
+        ["Kit comercial ESG, com respostas padronizadas a questionários ESG de clientes e licitações e uma página ESG no site da Ligeira",12,3] ]}
+    ],
+    nao:["treinamento contínuo","auditoria","veículos elétricos","pontos de apoio"] },
+
+  { n:2, nome:"Meridiano ESG", tag:"Proposta intermediária",
+    resumo:"Escreve as cinco políticas com manual e fluxos de aprovação, mede as emissões da operação inteira, testa veículos elétricos num bairro e revisa as regras que o aplicativo impõe a quem entrega.",
+    prazo:"6 meses de implantação e mais 12 de acompanhamento", horas:"240 horas dos sócios e gestores no primeiro ano (20 por mês)", pagto:"12 parcelas mensais",
+    quem:"A consultoria coordena a implantação, com um gestor da Ligeira responsável por cada frente.",
+    promessa:"Rotatividade de entregadores de 15% para 12% ao mês em 12 meses.",
+    pilares:[
+      { nome:"Governança", itens:[
+        ["Cinco políticas escritas, com manual e fluxos de aprovação",28,8],
+        ["Matriz de alçadas (quem aprova até qual valor), implantada na planilha financeira",5,0],
+        ["Revisão e redação formal do contrato social e do acordo de sócios, com as regras de decisão e de saída",14,0] ]},
+      { nome:"Meio ambiente", itens:[
+        ["Inventário de emissões dos escopos 1, 2 e 3, incluindo a frota terceirizada",14,8],
+        ["Piloto de 60 dias com 6 bicicletas elétricas de carga em um bairro plano de Joinville (locação, seguro, recarga e medição)",15,0],
+        ["Plano de transição da frota, com metas por bairro e por cidade",10,0] ]},
+      { nome:"Pessoas", itens:[
+        ["Política de jornada máxima, com bloqueio no aplicativo e regra de transição de renda",8,0],
+        ["Revisão do cronômetro e do sistema de avaliação do aplicativo",10,0],
+        ["Psicóloga para o galpão, 6 horas por semana",15,15],
+        ["Projeto de pontos de apoio para entregadores, com cotação de imóveis em Joinville, Blumenau e no litoral",6,0],
+        ["Treinamento de 16 horas para líderes e gestores",5,3],
+        ["Pesquisa semestral de escuta com entregadores",8,8] ]},
+      { nome:"Oportunidade", itens:[
+        ["Investimento social privado na vizinhança. Programa de formação de jovens do entorno do galpão para trabalhar na triagem e nas entregas, com uma turma por ano",20,12] ]}
+    ],
+    nao:["veículos elétricos além do piloto","aluguel, reforma e operação dos pontos de apoio","o efeito do bloqueio de jornada e da revisão do cronômetro sobre a receita e sobre o bônus da Lume"] },
+
+  { n:3, nome:"Prisma Governança e Impacto", tag:"Proposta premium",
+    resumo:"Prepara a Ligeira para receber um investidor institucional ou, mais adiante, abrir o capital. Organiza as contas, cria um conselho consultivo, monta o dossiê para a auditoria de um investidor e leva meio ambiente e pessoas ao essencial.",
+    prazo:"12 meses", horas:"360 horas dos sócios e gestores no primeiro ano (30 por mês)", pagto:"12 parcelas mensais",
+    quem:"Equipe da consultoria no galpão, com reunião quinzenal com Beatriz, Diego e Tiago.",
+    promessa:"Dossiê de documentos para a auditoria de um investidor (contratos, políticas, contas auditadas e inventário de emissões verificado) pronto em 12 meses.",
+    pilares:[
+      { nome:"Governança", itens:[
+        ["Oito políticas escritas, com manual, fluxos e auditoria interna. As cinco básicas e mais três (segurança do entregador, meio ambiente e proteção de dados pessoais)",32,10],
+        ["Reescrita do contrato social e do acordo de sócios, com regras para a entrada de um investidor",20,0],
+        ["Organização financeira para auditoria (plano de contas, fechamento mensal e orçamento anual)",12,0],
+        ["Diretor financeiro em tempo parcial, um dia a cada quinze dias",24,24],
+        ["Auditoria externa anual das demonstrações financeiras",15,15],
+        ["Conselho consultivo com dois membros externos, sem voto, reunião a cada dois meses e parecer sobre decisões acima de R$ 150 mil, registrado em ata",18,18],
+        ["Mapa de riscos e controles internos",10,4],
+        ["Dossiê de documentos para a auditoria de um investidor",12,5] ]},
+      { nome:"Meio ambiente", itens:[
+        ["Inventário de emissões dos escopos 1, 2 e 3, com verificação externa",18,8],
+        ["Piloto de 90 dias com 12 bicicletas elétricas de carga, num bairro plano de Joinville e no centro de Blumenau (locação, seguro, recarga e medição)",26,0],
+        ["Plano de transição da frota e contrato-modelo de locação para negociar com a Lume",10,0],
+        ["Relatório anual de sustentabilidade, sem verificação externa",5,5] ]},
+      { nome:"Pessoas", itens:[
+        ["Política de jornada máxima, com bloqueio no aplicativo e regra de transição de renda",8,0],
+        ["Revisão completa do aplicativo (cronômetro, avaliação e distribuição de corridas)",18,0],
+        ["Pesquisa semestral de escuta com entregadores",8,8],
+        ["Treinamento de 16 horas para líderes e gestores",5,3],
+        ["Projeto de pontos de apoio para entregadores",6,0] ]},
+      { nome:"Oportunidade", itens:[
+        ["Avaliação de impacto e plano para a certificação de Empresa B",15,4],
+        ["Apoio na montagem de pedidos de crédito com taxa reduzida para a compra de veículos elétricos",10,0] ]}
+    ],
+    nao:["veículos elétricos além do piloto","aluguel, reforma e operação dos pontos de apoio","o efeito do bloqueio de jornada e da revisão do aplicativo sobre a receita e sobre o bônus da Lume","custos jurídicos e financeiros da entrada de um investidor"] }
+];
+
+const sum5 = (it,k) => it.reduce((a,x)=>a+x[k],0);
+const tot5 = (p,k) => p.pilares.reduce((a,pl)=>a+sum5(pl.itens,k),0);
+const pct5 = v => (v/FAT5*100).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1}) + "%";
+const rs5 = v => v===0 ? "R$ 0" : `R$ ${v} mil`;
+const rp5 = v => v===0 ? "R$ 0" : `R$ ${v} mil (${pct5(v)})`;
+
+function renderTexto5(){
+  document.getElementById("retro5").innerHTML = RETRO5.map(t=>`<p>${t}</p>`).join("");
+  document.getElementById("intro-props5").innerHTML = INTRO5.map(t=>`<p>${t}</p>`).join("");
+  document.getElementById("props5").innerHTML = P5.map(p=>`<article class="prop5${group5===p.n?" sel":""}" id="prop5-${p.n}">
+    <p class="pn">Proposta ${p.n} · ${p.tag}</p>
+    <h3>${p.nome}</h3>
+    <p class="resumo">${p.resumo}</p>
+    <div class="fatos">
+      <div><b>Prazo</b>${p.prazo}</div>
+      <div><b>Tempo da equipe</b>${p.horas}</div>
+      <div><b>Pagamento</b>${p.pagto}</div>
+      <div><b>Quem executa</b>${p.quem}</div>
+      <div><b>Promessa mensurável</b>${p.promessa}</div>
+    </div>
+    ${p.pilares.map(pl=>`<div class="pilar">
+      <div class="it h"><span>${pl.nome}</span><span>Ano 1</span><span>Ano 2+</span></div>
+      <p class="prob">${PROB5[pl.nome]}</p>
+      ${pl.itens.map(i=>`<div class="it"><span>${i[0]}</span><span data-l="Ano 1">${rs5(i[1])}</span><span data-l="Ano 2+">${rs5(i[2])}</span></div>`).join("")}
+      <div class="it sub"><span>Subtotal de ${pl.nome.toLowerCase()}</span><span data-l="Ano 1">${rs5(sum5(pl.itens,1))}</span><span data-l="Ano 2+">${rs5(sum5(pl.itens,2))}</span></div>
+    </div>`).join("")}
+    <div class="tot">
+      <div class="it"><span>Preço total</span><span data-l="Ano 1">${rs5(tot5(p,1))}</span><span data-l="Ano 2+">${rs5(tot5(p,2))}</span></div>
+      <div class="it"><span>Percentual do faturamento (R$ 4,7 milhões)</span><span data-l="Ano 1">${pct5(tot5(p,1))}</span><span data-l="Ano 2+">${pct5(tot5(p,2))}</span></div>
+    </div>
+    <p class="nao"><b>Não incluído no preço.</b> ${p.nao.join("; ")}.</p>
+  </article>`).join("") + `<div class="lado"><h3>Lado a lado</h3><table>
+    <thead><tr><th></th>${P5.map(p=>`<th>Proposta ${p.n}</th>`).join("")}</tr></thead>
+    <tbody>
+      <tr><th>Preço no ano 1</th>${P5.map(p=>`<td>${rp5(tot5(p,1))}</td>`).join("")}</tr>
+      <tr><th>Preço do ano 2 em diante</th>${P5.map(p=>`<td>${rp5(tot5(p,2))}</td>`).join("")}</tr>
+      <tr><th>Governança, ano 1</th>${P5.map(p=>`<td>${rp5(sum5(p.pilares[0].itens,1))}</td>`).join("")}</tr>
+      <tr><th>Meio ambiente, ano 1</th>${P5.map(p=>`<td>${rp5(sum5(p.pilares[1].itens,1))}</td>`).join("")}</tr>
+      <tr><th>Pessoas, ano 1</th>${P5.map(p=>`<td>${rp5(sum5(p.pilares[2].itens,1))}</td>`).join("")}</tr>
+      <tr><th>Oportunidade, ano 1</th>${P5.map(p=>`<td>${rp5(sum5(p.pilares[3].itens,1))}</td>`).join("")}</tr>
+      <tr><th>Prazo</th>${P5.map(p=>`<td>${p.prazo}</td>`).join("")}</tr>
+      <tr><th>Tempo da equipe</th>${P5.map(p=>`<td>${p.horas}</td>`).join("")}</tr>
+      <tr><th>Pagamento</th>${P5.map(p=>`<td>${p.pagto}</td>`).join("")}</tr>
+      <tr><th>Promessa mensurável</th>${P5.map(p=>`<td>${p.promessa}</td>`).join("")}</tr>
+    </tbody></table></div>`;
+}
+
+let group5 = null;
+try{ const g = localStorage.getItem(BASE5+"-grupo"); if(g) group5 = +g; }catch(e){}
+
+function renderGroups5(){
+  const box = document.getElementById("groups5");
+  box.innerHTML = Array.from({length:NGROUPS5},(_,i)=>i+1).map(n=>`<button type="button" class="gbtn2" data-g5="${n}" aria-pressed="${group5===n}">Grupo ${n}</button>`).join("");
+  box.querySelectorAll("[data-g5]").forEach(b=>b.addEventListener("click",()=>{
+    const n=+b.dataset.g5; if(n===group5) return;
+    group5=n; try{ localStorage.setItem(BASE5+"-grupo", String(n)); }catch(e){}
+    renderGroups5(); renderTexto5(); renderTarefa5();
+    const alvo = document.getElementById("tarefa-5"); if(alvo) alvo.scrollIntoView();
+  }));
+  document.getElementById("gnow5").textContent = group5 ? `Vocês estão trabalhando como Grupo ${group5} e defendem a Proposta ${group5}.` : "";
+  document.getElementById("tarefa-5").classList.toggle("hidden", !group5);
+  document.getElementById("decisao5-locked").classList.toggle("hidden", !!group5);
+}
+
+function renderTarefa5(){
+  const area = document.getElementById("tarefa5-area");
+  if(!group5){ area.innerHTML=""; return; }
+  const p = P5[(group5-1) % P5.length];
+  area.innerHTML = `<div class="task"><p class="mes4">Grupo ${group5}</p>
+    <p><b>Vocês defendem a Proposta ${p.n}, da ${p.nome}.</b> Sua tarefa é convencer os três sócios e os outros dois grupos de que ela é a melhor escolha para a Ligeira.</p></div>`;
+}
+
+renderTexto5();
+renderGroups5();
+renderTarefa5();
+
+route();
+</script>
+</body>
+</html>
