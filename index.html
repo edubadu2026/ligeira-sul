@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/icone.png">
 <title>Ligeira Logística Urbana · Case de Ensino</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -301,20 +303,51 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 .lado th,.lado td{border-bottom:1px solid var(--paper-2);padding:.5rem .7rem;text-align:left;vertical-align:top}
 .lado thead th{background:var(--ink);color:#fff}
 .lado tbody th{width:22%}
+/* vindos da versão de Porto Alegre */
+.chips{display:flex;flex-wrap:wrap;gap:.55rem}
+.chip{font:inherit;font-size:.95rem;background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:999px;padding:.5rem .9rem;cursor:grab;line-height:1.2}
+.chip.sel{background:var(--yellow);box-shadow:0 0 0 3px var(--ink)}
+.chip.ok{border-color:var(--green);background:#E3F1E9}
+.chip.nok{border-color:var(--red);background:#F6E1DC}
+.quad{background:#fff;min-height:17rem;padding:1rem 1.1rem;cursor:pointer;display:flex;flex-direction:column;gap:.6rem}
+.quad:hover{background:#FFFBEA}
+.quad.drop{background:var(--yellow-soft)}
+.qname{display:block;font-weight:700;font-size:.95rem;line-height:1.25;letter-spacing:.01em;color:var(--ink-2)}
+.envelopes{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1rem;font-family:var(--sans)}
+.envelopes{display:block}
+.env2{position:relative;display:block;width:min(100%,440px);aspect-ratio:16/10;margin:.5rem 0 0;padding:0;border:0;border-radius:6px;background:#FBF8EF;cursor:pointer;font:inherit;perspective:1100px;box-shadow:0 1px 0 rgba(27,37,48,.08),0 18px 40px -18px rgba(27,37,48,.55);transition:transform .25s ease,box-shadow .25s ease}
+.env2:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 1px 0 rgba(27,37,48,.08),0 24px 46px -18px rgba(27,37,48,.6)}
+.env2::before{content:"";position:absolute;inset:0;border-radius:6px;pointer-events:none;background:linear-gradient(to top right,transparent calc(50% - 1px),rgba(27,37,48,.18) 50%,transparent calc(50% + 1px)) left bottom/50% 62% no-repeat,linear-gradient(to top left,transparent calc(50% - 1px),rgba(27,37,48,.18) 50%,transparent calc(50% + 1px)) right bottom/50% 62% no-repeat}
+.env2 .flap{position:absolute;left:0;right:0;top:0;height:58%;background:var(--ink);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;transition:transform .7s cubic-bezier(.5,0,.2,1),background .7s ease;z-index:2;border-radius:6px 6px 0 0}
+.env2 .seal{position:absolute;left:50%;top:58%;width:58px;height:58px;margin:-30px 0 0 -29px;border-radius:50%;background:var(--yellow);color:var(--ink);font-family:var(--serif);font-weight:750;font-size:1.7rem;display:flex;align-items:center;justify-content:center;z-index:3;box-shadow:0 0 0 5px #FBF8EF,0 6px 14px rgba(0,0,0,.25);transition:opacity .3s ease,transform .3s ease}
+.env2 .lbl{position:absolute;left:1.2rem;bottom:1rem;font-family:var(--sans);font-weight:700;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);z-index:1}
+.env2.open{cursor:default;background:#F1EEE5;margin-top:calc(min(100%,440px) * .3625 + .75rem)}
+.env2.open .flap{transform:rotateX(180deg);background:#C9CED4}
+.env2.open .seal{opacity:0;transform:scale(.6)}
+#event-area .event{background:#fff;border-left:0;border-top:6px solid var(--yellow);border-radius:4px;padding:1.6rem 1.8rem;box-shadow:0 18px 40px -22px rgba(27,37,48,.5);animation:carta .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes carta{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.env2,.env2 .flap,.env2 .seal{transition:none}#event-area .event{animation:none}}
+.hero-logo{margin:0}.hero-logo img{display:block;width:min(560px,80vw);height:auto}
+.hero-tag{font-family:var(--sans);font-weight:600;letter-spacing:.28em;text-transform:uppercase;font-size:.95rem;color:rgba(255,255,255,.75);margin:1.4rem 0 0}
+.cardpic{width:46px;height:46px;border-radius:50%;vertical-align:middle;margin-right:.55rem;object-fit:cover}
+.envlock{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-top:1rem}
+.envlock input{font:inherit;padding:.6rem .8rem;border:2px solid var(--ink);border-radius:4px;min-width:12rem;background:#fff}
+.envlock .err{color:#B3261E;font-size:.9rem}
+@media (max-width:640px){.quad{min-height:12rem;padding:.6rem}.qname{font-size:.8rem}.chip{font-size:.85rem;padding:.4rem .7rem}}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="#inicio"><span class="brand-dot" aria-hidden="true"></span>Ligeira</a>
+    <a class="brand" href="#inicio"><img src="img/logo-claro.png" alt="Ligeira" style="height:30px;width:auto;display:block"></a>
     <nav aria-label="Capítulos">
       <a href="#inicio" data-view="inicio">Início</a>
-      <a href="#capitulo-1" data-view="capitulo-1">Cap. 1: Stakeholders</a>
-      <a href="#capitulo-2" data-view="capitulo-2">Cap. 2: Valores</a>
-      <a href="#capitulo-3" data-view="capitulo-3">Cap. 3: O E</a>
-      <a href="#capitulo-4" data-view="capitulo-4">Cap. 4: O S</a>
-      <a href="#capitulo-5" data-view="capitulo-5">Cap. 5: O G</a>
+      <a href="#capitulo-1" data-view="capitulo-1">Cap. 1</a>
+      <a href="#capitulo-2" data-view="capitulo-2">Cap. 2</a>
+      <a href="#capitulo-3" data-view="capitulo-3">Cap. 3</a>
+      <a href="#capitulo-4" data-view="capitulo-4">Cap. 4</a>
+      <a href="#capitulo-5" data-view="capitulo-5">Cap. 5</a>
     </nav>
   </div>
 </header>
@@ -343,24 +376,24 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
       <circle class="route-stop" cx="620" cy="462" r="9"/>
     </svg>
     <div class="hero-in">
-      <p class="kicker">Case de ensino da disciplina ESG, MBA em Gestão Empresarial, FGV, 2026</p>
-      <h1>Ligeira Logística Urbana</h1>
+      <h1 class="hero-logo"><img src="img/logo-claro-grande.png" alt="Ligeira Logística Urbana"></h1>
+      <p class="hero-tag">Logística urbana · Blumenau</p>
     </div>
   </section>
 
   <section class="section">
     <div class="prose">
-      <p class="lede">A Ligeira nasceu em 2018 entregando as encomendas das confecções de Blumenau e cresceu no ritmo do e-commerce catarinense. Hoje, cada entrega feita em poucas horas envolve clientes, entregadores, empregados, credores, vizinhos e as próprias cidades da região, e nem todos ganham com ela na mesma medida.</p>
-      <p>Ao longo de cinco capítulos, o case acompanha os fundadores da Ligeira, Beatriz Nakamura e Diego Rocha, enquanto eles tentam responder à pergunta que atravessa o curso:</p>
-      <p class="pull">É possível gerir um negócio de maneira sustentável para todos os seus stakeholders?</p>
+      <p class="lede">A Ligeira é uma empresa de entregas urbanas de Blumenau. Nasceu pequena, em 2018, levando as encomendas das confecções da cidade até a porta dos clientes no mesmo dia, e cresceu junto com o comércio eletrônico catarinense, até chegar a Joinville e ao litoral. É uma empresa de três sócios.</p>
+      <p>A Ligeira nasceu e cresceu no Capitalismo 4.0, um tempo em que não basta dar lucro ao acionista. Cada entrega envolve clientes, entregadores, empregados, credores, vizinhos e as próprias cidades da região, e todos esperam algo da empresa.</p>
+      <p>Ao longo da sua trajetória, a Ligeira vai ter de descobrir se é possível crescer sem que o crescimento seja feito à custa dos outros. E vai ter de aprender, às vezes do jeito mais difícil, a cuidar do planeta, das pessoas e das próprias regras.</p>
 
       <h2>Capítulos</h2>
       <ol class="chapters">
-        <li data-cap="1"><span class="cn">Capítulo 1 · Capitalismo 4.0</span><span class="ct">Os stakeholders da Ligeira</span></li>
-        <li data-cap="2"><span class="cn">Capítulo 2 · Valores</span><span class="ct">Os fundamentos do ESG</span></li>
-        <li data-cap="3"><span class="cn">Capítulo 3 · O E do ESG</span><span class="ct">O desafio ambiental</span></li>
-        <li data-cap="4"><span class="cn">Capítulo 4 · O S do ESG</span><span class="ct">O desafio social</span></li>
-        <li data-cap="5"><span class="cn">Capítulo 5 · O G do ESG</span><span class="ct">O desafio da governança</span></li>
+        <li data-cap="1"><span class="cn">Capítulo 1</span><span class="ct">Stakeholders</span></li>
+        <li data-cap="2"><span class="cn">Capítulo 2</span><span class="ct">Valores</span></li>
+        <li data-cap="3"><span class="cn">Capítulo 3</span><span class="ct">Meio ambiente</span></li>
+        <li data-cap="4"><span class="cn">Capítulo 4</span><span class="ct">Pessoas</span></li>
+        <li data-cap="5"><span class="cn">Capítulo 5</span><span class="ct">Governança</span></li>
       </ol>
       <p class="note">A Ligeira e todos os seus personagens são fictícios. Os dados sobre a região e o setor são ilustrativos.</p>
     </div>
@@ -371,8 +404,8 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 <div id="view-capitulo-1" class="view hidden">
   <section class="chap-head">
     <div class="in">
-      <p class="num">Capítulo 1 · Capitalismo 4.0</p>
-      <h1>Os stakeholders da Ligeira</h1>
+      <p class="num">Capítulo 1</p>
+      <h1>Stakeholders</h1>
     </div>
   </section>
 
@@ -382,9 +415,7 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
       <p>A divisão de tarefas sempre foi natural. Beatriz cuidava de tudo o que acontecia na rua, ou seja, clientes, galpão, entregadores e dinheiro. Diego cuidava de tudo o que acontecia na tela, o aplicativo, o algoritmo e os dados. Nenhum dos dois jamais tinha gerido uma empresa. Enquanto a Ligeira era pequena, isso não fez falta.</p>
       <p>A pandemia triplicou o volume de entregas. Em <strong>2023</strong> veio o contrato que mudou a escala da empresa. A Lume Varejo, uma varejista de moda online nascida em Blumenau, passou a usar a Ligeira nas entregas de Joinville a Balneário Camboriú. A Ligeira saiu de Blumenau e passou a rodar também por Joinville, Jaraguá do Sul, Brusque, Itajaí e Balneário Camboriú.</p>
       <p>No início de 2026, a Ligeira fazia cerca de <strong>1.500 entregas por dia</strong> na região. Faturava <strong>R$ 4,7 milhões por ano</strong>, tinha <strong>19 empregados</strong> e contava com cerca de <strong>220 entregadores cadastrados</strong>.</p>
-      <p>Mas os doze meses anteriores tinham trazido uma sequência de problemas que ninguém previra. A Lume ameaçou reduzir o volume depois de uma semana de atrasos. Uma paralisação de entregadores atrasou <strong>2 mil entregas</strong>. Os moradores vizinhos ao galpão fizeram um abaixo-assinado à prefeitura. Dois desenvolvedores saíram para empresas maiores. E o banco pediu garantias adicionais para renovar o capital de giro.</p>
-      <p class="pull">Cada problema parecia isolado. Beatriz começou a desconfiar de que não eram.</p>
-      <p>Foi com essa inquietação que ela se matriculou no MBA em Gestão Empresarial da FGV. Na disciplina de ESG, entendeu o que ligava todos aqueles problemas. No Capitalismo 4.0, uma empresa só consegue evitar riscos desnecessários e potencializar o seu lucro se souber gerir os seus stakeholders. É essa gestão que impede que o crescimento seja feito à custa dos outros, e que torna o próprio Capitalismo 4.0 possível. Na mesma disciplina, Beatriz aprendeu a matriz de poder e interesse. Voltou para a Ligeira decidida a usá-la. Antes de qualquer outra decisão, queria saber quem era quem.</p>
+      <p>Em 2025, Beatriz se matriculou no MBA em Gestão Empresarial da FGV. Na disciplina de ESG, entendeu que a Ligeira crescia num mundo diferente daquele em que muitas empresas aprenderam a crescer. No Capitalismo 4.0, uma empresa só consegue evitar riscos desnecessários e potencializar o seu lucro se souber gerir os seus stakeholders. É essa gestão que impede que o crescimento seja feito à custa dos outros. Na mesma disciplina, Beatriz aprendeu a matriz de poder e interesse e voltou para a Ligeira decidida a usá-la. Antes de qualquer outra decisão, queria saber quem era quem.</p>
     </div>
   </section>
 
@@ -397,30 +428,27 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
   <section class="section" id="grupo">
     <div class="round">
       <div class="round-head">
-        <h2>Qual é o seu grupo?</h2>
-        <div class="task">Cada grupo trabalha num único aparelho. Escolham o número do grupo antes de começar: as respostas de cada grupo ficam separadas.</div>
+        <h2>Grupo</h2>
       </div>
       <div class="groups" id="groups"></div>
       <p class="gnow" id="gnow" aria-live="polite"></p>
     </div>
   </section>
 
-  <div id="rounds-locked" class="round"><p class="locked-msg">Escolham o grupo acima para liberar as rodadas.</p></div>
+  <div id="rounds-locked"></div>
   <div id="rounds">
   <!-- RODADA 1 -->
   <section class="section" id="rodada-1">
     <div class="round">
       <div class="round-head">
-        <h2>Rodada 1: a matriz</h2>
-        <div class="task">Posicionem cada um dos 12 stakeholders da Ligeira na matriz de poder e interesse.</div>
+        <h2>A matriz de poder e interesse</h2>
       </div>
       <div class="matrix-wrap" data-matrix="r1"></div>
       <div class="row-actions">
-        <button class="btn ghost" type="button" data-reset="r1">Limpar a matriz</button>
-        <button class="btn" type="button" id="show-lock">Ver o gabarito</button>
+        <button class="btn ghost" type="button" id="show-lock">Gabarito</button>
       </div>
       <div class="lock hidden" id="lock">
-        <label for="code">Código do professor</label>
+        <label for="code">Código</label>
         <input id="code" type="password" autocomplete="off">
         <button class="btn" type="button" id="unlock">Abrir</button>
         <span class="err" id="lock-err" role="alert"></span>
@@ -430,7 +458,7 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
   </section>
 
   <!-- RODADA 2 -->
-  <section class="section" id="rodada-2">
+  <section class="section hidden" id="rodada-2">
     <div class="round">
       <div class="round-head">
         <h2>Rodada 2: as horas da CEO</h2>
@@ -445,23 +473,16 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
   <section class="section" id="rodada-3">
     <div class="round">
       <div class="round-head">
-        <h2>Rodada 3: o evento</h2>
-        <div class="task">Abram o envelope do seu grupo só quando o professor autorizar. Diante do acontecimento:
-          <ol>
-            <li>Algum stakeholder muda de quadrante? Se muda, movam-no na matriz e expliquem por quê.</li>
-            <li>Redistribuam as 40 horas de Beatriz. De quem vocês tiraram tempo?</li>
-          </ol>
-        </div>
+        <h2>O acontecimento</h2>
       </div>
       <div class="envelopes" id="envelopes"></div>
       <div id="event-area" class="hidden">
         <article class="event" id="event-text"></article>
         <h3>A matriz depois do evento</h3>
-        <p class="note">A matriz começa igual à da rodada 1. Movam apenas o que mudou.</p>
         <div class="matrix-wrap" data-matrix="r3"></div>
-        <h3 style="margin-top:2rem">As horas depois do evento</h3>
-        <div class="hours" data-hours="r3h"></div>
-        <div class="row-actions">
+        <h3 style="display:none">As horas depois do evento</h3>
+        <div class="hours" data-hours="r3h" style="display:none"></div>
+        <div class="row-actions" style="display:none">
           <button class="btn ghost" type="button" id="recopy">Recomeçar a partir das rodadas 1 e 2</button>
         </div>
       </div>
@@ -469,7 +490,7 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
   </section>
 
   <!-- RESUMO -->
-  <section class="section" id="resumo">
+  <section class="section hidden" id="resumo">
     <div class="round">
       <div class="round-head">
         <h2 id="sum-title">Antes e depois</h2>
@@ -493,8 +514,8 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 <div id="view-capitulo-2" class="view hidden">
   <section class="chap-head c2">
     <div class="in">
-      <p class="num">Capítulo 2 · Valores</p>
-      <h1>Os fundamentos do ESG</h1>
+      <p class="num">Capítulo 2</p>
+      <h1>Valores</h1>
     </div>
   </section>
 
@@ -550,8 +571,8 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 <div id="view-capitulo-3" class="view hidden">
   <section class="chap-head c3">
     <div class="in">
-      <p class="num">Capítulo 3 · O E do ESG</p>
-      <h1>O desafio ambiental</h1>
+      <p class="num">Capítulo 3</p>
+      <h1>Meio ambiente</h1>
     </div>
   </section>
 
@@ -770,8 +791,8 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 <div id="view-capitulo-4" class="view hidden">
   <section class="chap-head c4">
     <div class="in">
-      <p class="num">Capítulo 4 · O S do ESG</p>
-      <h1>O desafio social</h1>
+      <p class="num">Capítulo 4</p>
+      <h1>Pessoas</h1>
     </div>
   </section>
 
@@ -807,8 +828,8 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 <div id="view-capitulo-5" class="view hidden">
   <section class="chap-head c5">
     <div class="in">
-      <p class="num">Capítulo 5 · O G do ESG</p>
-      <h1>O desafio da governança</h1>
+      <p class="num">Capítulo 5</p>
+      <h1>Governança</h1>
     </div>
   </section>
 
@@ -857,10 +878,10 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 const PROF_CODE = "LIGEIRASUL";
 
 const QUADS = {
-  AP_BI:{name:"Satisfazer", sub:"Alto poder, baixo interesse"},
-  AP_AI:{name:"Gerenciar de perto", sub:"Alto poder, alto interesse"},
-  BP_BI:{name:"Monitorar", sub:"Baixo poder, baixo interesse"},
-  BP_AI:{name:"Informar", sub:"Baixo poder, alto interesse"}
+  AP_BI:{name:"Alto poder, baixo interesse"},
+  AP_AI:{name:"Alto poder, alto interesse"},
+  BP_BI:{name:"Baixo poder, baixo interesse"},
+  BP_AI:{name:"Baixo poder, alto interesse"}
 };
 const QUAD_ORDER = ["AP_BI","AP_AI","BP_BI","BP_AI"];
 
@@ -907,13 +928,13 @@ const HOUR_S = S.filter(s=>!s.ceo);
 const EVENTS = [
  {g:1, t:"O vídeo", x:"Numa quinta-feira à noite, um entregador da Ligeira sofre um acidente de moto na BR-470, em Blumenau. Não corre risco de vida, mas vai ficar três meses sem trabalhar. Um colega grava o atendimento e publica o vídeo com uma denúncia. O aplicativo da Ligeira reduz a pontuação de quem atrasa mais de <strong>30 minutos</strong>, e entregadores com pontuação baixa recebem menos corridas. Em 48 horas, o vídeo tem <strong>2 milhões de visualizações</strong>. A associação de entregadores convoca uma paralisação por tempo indeterminado, e um jornal pede entrevista com Beatriz.",
   m:"Associação: de baixo para alto poder.", d:"Uma regra do algoritmo (G) gerou um custo pago pelo entregador (S). A crise deu voz a quem não tinha."},
- {g:2, t:"O inquérito", x:"A prefeitura nunca respondeu ao abaixo-assinado, então os moradores procuraram o Ministério Público de Santa Catarina. Um promotor abre um inquérito sobre o ruído noturno e o uso das calçadas pelo galpão da Ligeira, e um vereador do bairro leva o caso à Câmara de Vereadores de Blumenau. Se o inquérito prosperar, o galpão pode perder a autorização para funcionar de madrugada, justamente o turno em que se preparam <strong>60% das entregas</strong> do dia seguinte.",
+ {g:2, t:"O inquérito", x:"A prefeitura nunca respondeu ao abaixo-assinado, então os moradores procuraram o Ministério Público de Santa Catarina. Um promotor abre um inquérito sobre o ruído noturno e o uso das calçadas pelo galpão da Ligeira. Na mesma semana, um vereador do bairro grava um vídeo às três da manhã, em frente ao galpão, com caminhões manobrando e motos sobre a calçada. “Isso é o que sessenta famílias ouvem toda madrugada”, diz ele. O vídeo circula nos grupos do bairro e chega a uma rádio de Blumenau. Se o inquérito prosperar, o galpão pode perder a autorização para funcionar de madrugada, justamente o turno em que se preparam <strong>60% das entregas</strong> do dia seguinte.",
   m:"Moradores: de baixo para alto poder.", d:"Quem não tem poder busca quem tem. Ignorar o abaixo-assinado saiu caro. É a Braskem em miniatura."},
  {g:3, t:"A Entrega Limpa", x:"A Lume Varejo lança uma campanha nova. Na tela de pagamento do site, o cliente escolhe entre a <strong>Entrega Limpa</strong>, feita em veículo elétrico, e a entrega expressa, mais rápida. A Entrega Limpa só aparece para quem mora em bairro onde há quem a faça, e quem a faz é uma das outras duas empresas de logística que atendem a Lume, que começou a trocar a frota no ano passado. Em março eram três bairros, e a Ligeira deixou de fazer <strong>60 entregas por dia</strong>. Em abril foram sete bairros e <strong>130 entregas por dia</strong>. A Lume não pediu nada à Ligeira.",
   m:"Lume: de baixo para alto interesse.", d:"A pressão ambiental chega pelo cliente final, não pelo regulador. Reduzir a externalidade (E) deixa de ser custo e vira condição de permanecer na carteira."},
  {g:4, t:"O gigante", x:"Uma grande plataforma de comércio eletrônico lança um serviço de entrega no mesmo dia para pequenos lojistas da região, com preços <strong>20% menores</strong> que os da Ligeira e seis meses de frete grátis para quem aderir. Em duas semanas, <strong>cinco lojistas</strong> da carteira da Ligeira avisam que vão testar o serviço novo.",
   m:"Lojistas: de alto para baixo interesse.", d:"O interesse também diminui. Com alternativas, os lojistas dependem menos, e a Ligeira fica mais dependente da Lume."},
- {g:5, t:"A Black Friday", x:"Faltam três semanas para a Black Friday, e a Ligeira prevê o <strong>triplo do volume</strong> normal. O comércio eletrônico da região inteira está contratando para galpões, e as indústrias também. As agências de trabalho temporário não têm mais gente para oferecer. Numa troca de turno, os <strong>12 empregados</strong> do galpão entregam a Beatriz uma carta assinada por todos. Pedem adicional noturno maior e um intervalo de descanso nos turnos de pico. “Se não der, não dá para garantir a Black Friday”, diz o líder de turno.",
+ {g:5, t:"A Black Friday", x:"Faltam três semanas para a Black Friday, e a Ligeira prevê o <strong>triplo do volume</strong> normal. O comércio eletrônico da região inteira está contratando para galpões, e as indústrias também. As agências de trabalho temporário não têm mais gente para oferecer. Numa troca de turno, os <strong>12 empregados</strong> do galpão entregam a Beatriz uma carta assinada por todos. Pedem adicional noturno maior e um intervalo de descanso nos turnos de pico. No dia seguinte, um áudio do líder de turno contando a história começa a circular nos grupos de trabalhadores de galpões da região. “Na Ligeira, a gente faz o triplo pelo mesmo.” Duas agências avisam que os temporários recrutados para a Ligeira estão desistindo antes de começar.",
   m:"Equipe do galpão: de baixo para alto poder.", d:"O poder depende do contexto: a escassez muda o jogo. Tratar bem na calmaria é gerir o risco da tempestade."}
 ];
 
@@ -922,7 +943,7 @@ const BASE = "ligeira-sul-modulo-1";
 let group = null;
 try{ const g = localStorage.getItem(BASE+"-grupo"); if(g) group = +g; }catch(e){}
 let unlocked = false;
-try{ unlocked = localStorage.getItem(BASE+"-prof")==="1"; }catch(e){}
+try{ localStorage.removeItem(BASE+"-prof"); }catch(e){} /* o gabarito nunca fica aberto depois de recarregar a página */
 function blank(){ return {r1:{}, r2:{}, ev:null, r3:{}, r3h:{}}; }
 let state = blank();
 function load(){
@@ -931,21 +952,20 @@ function load(){
   try{ const raw = localStorage.getItem(`${BASE}-g${group}`); if(raw) state = Object.assign(blank(), JSON.parse(raw)); }catch(e){}
 }
 function save(){ if(!group) return; try{ localStorage.setItem(`${BASE}-g${group}`, JSON.stringify(state)); }catch(e){} }
-function saveProf(){ try{ localStorage.setItem(BASE+"-prof", unlocked?"1":"0"); }catch(e){} }
+function saveProf(){}
 load();
 const sel = {r1:null, r3:null};
 const byId = id => S.find(s=>s.id===id);
 
 /* ---------- cartões ---------- */
 document.getElementById("cards").innerHTML = S.map(s=>`
-  <article class="card"><h3><span aria-hidden="true">${s.e}</span>${s.n}</h3><p>${s.t}</p></article>`).join("");
+  <article class="card"><h3>${(s.id==="beatriz"||s.id==="diego")?`<img class="cardpic" src="img/${s.id}.jpg" alt="">`:`<span aria-hidden="true">${s.e}</span>`}${s.n}</h3><p>${s.t}</p></article>`).join("");
 
 /* ---------- matriz ---------- */
 function buildMatrix(key){
   const wrap = document.querySelector(`[data-matrix="${key}"]`);
   wrap.innerHTML = `
     <div class="tray" data-q="tray">
-      <p class="tray-label">Ainda sem posição. Toque num stakeholder e depois no quadrante (ou arraste).</p>
       <div class="chips"></div>
     </div>
     <p class="status" aria-live="polite"></p>
@@ -953,7 +973,7 @@ function buildMatrix(key){
       <div class="axis-y"><small>baixo</small>Poder<small>alto</small></div>
       <div class="grid">
         ${QUAD_ORDER.map(q=>`<div class="quad" data-q="${q}" tabindex="0" role="button" aria-label="Posicionar em ${QUADS[q].name}">
-          <div><span class="qname">${QUADS[q].name}</span><span class="qsub">${QUADS[q].sub}</span></div>
+          <div><span class="qname">${QUADS[q].name}</span></div>
           <div class="chips"></div></div>`).join("")}
       </div>
       <div class="axis-x"><small>baixo</small>Interesse<small>alto</small></div>
@@ -987,7 +1007,7 @@ function renderMatrix(key){
     target.appendChild(b);
   });
   const st = wrap.querySelector(".status");
-  st.textContent = sel[key] ? `Agora toque no quadrante para posicionar: ${byId(sel[key]).n}.` : `${placed} de ${S.length} stakeholders posicionados.`;
+  st.textContent = "";
   wrap.querySelector(".tray").classList.toggle("hidden", placed===S.length && !sel[key]);
 }
 function place(key,id,q){
@@ -1018,19 +1038,37 @@ function renderHours(key){
 }
 
 /* ---------- envelopes ---------- */
+const ENV_HASH = "f4c6f3dbf5f312566736e354a41173028b57dd07101c3faec335bf32dca5698c";
+async function sha(t){ const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t)); return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,"0")).join(""); }
 function renderEnvelopes(){
   const box=document.getElementById("envelopes");
   if(!group){ box.innerHTML=""; return; }
   const opened = state.ev===group;
-  box.innerHTML = `<button type="button" class="env ${opened?"chosen":""}" id="env-btn" ${opened?"disabled":""}>
-      <strong>Envelope do Grupo ${group}</strong><span>${opened?"Envelope aberto":"Toque para abrir"}</span></button>`;
-  if(!opened) document.getElementById("env-btn").addEventListener("click",()=>{
-    if(!confirm("Abrir o envelope agora? Façam isso só quando o professor autorizar.")) return;
+  box.innerHTML = `<button type="button" class="env2 ${opened?"open":""}" id="env-btn" ${opened?"disabled":""} aria-label="Envelope do Grupo ${group}">
+      <span class="flap" aria-hidden="true"></span>
+      <span class="seal" aria-hidden="true">${group}</span>
+      <span class="lbl">Grupo ${group}</span>
+    </button>
+    <div class="envlock hidden" id="envlock">
+      <label for="env-pw">Senha</label>
+      <input id="env-pw" type="password" autocomplete="off" autocapitalize="none">
+      <button class="btn" type="button" id="env-ok">Abrir</button>
+      <span class="err" id="env-err" role="alert"></span>
+    </div>`;
+  if(opened) return;
+  const lockBox=document.getElementById("envlock"), pw=document.getElementById("env-pw"), err=document.getElementById("env-err");
+  document.getElementById("env-btn").addEventListener("click",()=>{ lockBox.classList.toggle("hidden"); if(!lockBox.classList.contains("hidden")) pw.focus(); });
+  const tryOpen = async ()=>{
+    const v = pw.value.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+    const h = await sha("ligeira:"+v);
+    if(h!==ENV_HASH){ err.textContent="Senha incorreta."; pw.select(); return; }
     state.ev=group;
     if(Object.keys(state.r3).length===0) state.r3 = Object.assign({}, state.r1);
     if(Object.keys(state.r3h).length===0) state.r3h = Object.assign({}, state.r2);
     save(); renderEvent();
-  });
+  };
+  document.getElementById("env-ok").addEventListener("click", tryOpen);
+  pw.addEventListener("keydown", e=>{ if(e.key==="Enter") tryOpen(); });
 }
 function renderEvent(){
   renderEnvelopes();
@@ -1071,13 +1109,14 @@ function renderAnswers(){
   if(!unlocked) return;
   document.getElementById("lock").classList.add("hidden");
   const a=document.getElementById("answers"); a.classList.remove("hidden");
-  a.innerHTML = `<h3>Gabarito</h3><p class="note">Critério: o poder mede quanto a Ligeira depende do stakeholder; o interesse, quanto a vida dele depende do que a Ligeira faz. Os stakeholders em verde na matriz acima estão na posição do gabarito; em vermelho, não. Nenhum stakeholder ficou em Monitorar: isso diz algo sobre a Ligeira?</p>
+  a.innerHTML = `<h3>Gabarito</h3><p class="note">Critério: o poder mede quanto a Ligeira depende do stakeholder; o interesse, quanto a vida dele depende do que a Ligeira faz. Os stakeholders em verde na matriz acima estão na posição do gabarito; em vermelho, não. Nenhum stakeholder ficou em baixo poder e baixo interesse: isso diz algo sobre a Ligeira?</p>
   <div class="table-scroll"><table><thead><tr><th>Stakeholder</th><th>Quadrante</th><th>Justificativa</th></tr></thead><tbody>` +
-   S.map(s=>`<tr><td>${s.e} ${s.n}</td><td>${QUADS[s.q].sub}${s.debate?'<span class="tag">em debate</span>':""}${s.mover?'<span class="tag">pode mudar</span>':""}</td><td>${s.j}</td></tr>`).join("") +
+   S.map(s=>`<tr><td>${s.e} ${s.n}</td><td>${QUADS[s.q].name}${s.debate?'<span class="tag">em debate</span>':""}${s.mover?'<span class="tag">pode mudar</span>':""}</td><td>${s.j}</td></tr>`).join("") +
    `</tbody></table></div>`;
   document.getElementById("professor").classList.remove("hidden");
   document.getElementById("prof-notes").innerHTML = `<div class="table-scroll"><table><thead><tr><th>Evento</th><th>Movimento esperado</th><th>Ponto de discussão</th></tr></thead><tbody>` +
    EVENTS.map(e=>`<tr><td>${e.g}. ${e.t}</td><td>${e.m}</td><td>${e.d}</td></tr>`).join("") + `</tbody></table></div>
+   <p class="note" style="margin-top:1rem"><strong>Senha dos envelopes:</strong> <em>vale</em>.</p>
    <div class="row-actions"><button class="btn ghost" type="button" id="relock">Fechar o gabarito</button></div>`;
   document.getElementById("relock").addEventListener("click",()=>{ unlocked=false; saveProf(); location.reload(); });
   renderMatrix("r1");
@@ -1219,10 +1258,10 @@ function renderAula2(){ renderGroups2(); renderDilema(); }
    ===================================================================== */
 const LIBERACAO = {
   1: "2026-11-09",
-  2: "2026-11-10",
-  3: "2026-11-16",
-  4: "2026-11-17",
-  5: "2026-11-17"
+  2: null,
+  3: null,
+  4: null,
+  5: null
 };
 function capLiberado(n){
   if(unlocked) return true;
@@ -1270,7 +1309,7 @@ function renderGroups(){
     group=n; try{ localStorage.setItem(BASE+"-grupo", String(n)); }catch(e){}
     load(); sel.r1=null; sel.r3=null; renderAll();
   }));
-  document.getElementById("gnow").textContent = group ? `Vocês estão trabalhando como Grupo ${group}.` : "";
+  document.getElementById("gnow").textContent = "";
   document.getElementById("rounds").classList.toggle("hidden", !group);
   document.getElementById("rounds-locked").classList.toggle("hidden", !!group);
   document.getElementById("sum-title").textContent = group ? `Antes e depois: Grupo ${group}` : "Antes e depois";
