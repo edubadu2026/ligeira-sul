@@ -354,6 +354,24 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 .card .qs li{padding-left:1.1rem;position:relative;margin:.25rem 0}
 .card .qs li::before{content:"";position:absolute;left:.15rem;top:.55em;width:.4rem;height:.4rem;border-radius:50%;background:var(--yellow)}
 @media (max-width:640px){.crit{grid-template-columns:1fr}.quad{min-height:10rem;padding:.8rem}.qname{font-size:.72rem}}
+/* capítulo 2 */
+.c2tiago{margin:2rem 0 0;display:flex;gap:1.4rem;align-items:flex-start}
+.c2tiago img{width:96px;height:96px;border-radius:50%;object-fit:cover;flex:none;box-shadow:0 0 0 4px #fff,0 10px 24px -12px rgba(27,37,48,.5)}
+.c2tiago p{margin:0}
+.socios3{max-width:1180px;margin:0 auto;padding:0 1.25rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.socio3{background:#fff;border-radius:8px;padding:1.6rem 1.4rem 1.4rem;text-align:center;box-shadow:0 18px 40px -26px rgba(27,37,48,.5)}
+.socio3 img{width:110px;height:110px;border-radius:50%;object-fit:cover;margin:0 auto;box-shadow:0 0 0 4px var(--paper)}
+.socio3 .pct{display:block;font-family:var(--serif);font-weight:750;font-size:2.4rem;line-height:1;margin:1rem 0 .3rem}
+.socio3 b{display:block;font-family:var(--sans);font-size:1.05rem}
+.socio3 p{font-family:var(--sans);font-size:.92rem;line-height:1.45;color:var(--ink-2);margin:.5rem 0 0}
+.capbar{margin:1.2rem 0 0;display:flex;gap:4px;font-family:var(--sans);font-size:.9rem;font-weight:600}
+.capbar i{font-style:normal;padding:.9rem .8rem;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.capbar .b{background:#C5E2F0}.capbar .d{background:#D2E8D5}.capbar .t{background:#F6E3B8}
+.combos{margin:1rem 0 2.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;font-family:var(--sans)}
+.combo{background:#fff;border-left:5px solid var(--yellow);border-radius:3px;padding:.9rem 1.1rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.combo span{font-size:.92rem;color:var(--ink-2)}
+.combo b{font-family:var(--serif);font-size:1.8rem;font-weight:750;line-height:1}
+@media (max-width:760px){.socios3{grid-template-columns:1fr}.combos{grid-template-columns:1fr}.c2tiago{flex-direction:column}.capbar{font-size:.78rem}}
 </style>
 </head>
 <body>
@@ -545,22 +563,50 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
   <section class="section">
     <div class="prose">
       <p class="lede">No começo de 2026, a Ligeira tinha um problema na mesa. O crédito continuava caro, as garantias continuavam sendo os apartamentos dos dois sócios, e o caixa não aguentaria outro ano apertado.</p>
-      <p>Foi nessa época que apareceu <strong>Tiago Medeiros</strong>. Tinha 47 anos e passara quinze como diretor de operações de uma grande rede varejista do Sul. Agora vivia de investir em pequenas empresas em que gostava de pôr a mão na massa. Conhecia logística por dentro, falava a língua dos grandes clientes e tinha o telefone dos diretores certos. Propôs aportar <strong>R$ 1 milhão por 25%</strong> da Ligeira.</p>
-      <p>A conta fechava com folga. R$ 600 mil quitaram a linha de capital de giro, os apartamentos de Beatriz e Diego saíram da garantia e o restante foi para o caixa. Tiago não quis conselho. Uma empresa de 19 empregados, disse, não precisa de conselho, precisa de gente que resolva. Ganhou uma mesa no galpão e uma diretoria de Expansão e Relacionamento. No acordo de sócios, as decisões passaram a ser tomadas por maioria do capital. Tiago pediu também que o contrato detalhasse as regras de saída dos sócios. “Formalidades”, disse. Diego leu as primeiras páginas.</p>
+    <div class="c2tiago">
+      <img src="img/tiago.jpg" alt="Tiago Medeiros">
+      <p>Foi nessa época que apareceu <strong>Tiago Medeiros</strong>. Tinha 47 anos e passara quinze como diretor de operações de uma grande rede varejista do Sul. Agora vivia de investir em pequenas empresas em que gostava de pôr a mão na massa. Conhecia logística por dentro, falava a língua dos grandes clientes e tinha o telefone dos diretores certos.</p>
+    </div>
+    </div>
+    <div class="nums">
+      <div class="num-card"><b>R$ 1 mi</b><span>de aporte de Tiago, por 25% da Ligeira</span></div>
+      <div class="num-card"><b>R$ 600 mil</b><span>para quitar a dívida de capital de giro</span></div>
+      <div class="num-card"><b>2</b><span>apartamentos que saíram da garantia</span></div>
+      <div class="num-card"><b>0</b><span>conselho. “Uma empresa de 19 empregados precisa de gente que resolva”</span></div>
+    </div>
+    <div class="prose" style="margin-top:2.5rem">
+      <p>A conta fechava com folga. Tiago ganhou uma mesa no galpão e uma diretoria de Expansão e Relacionamento. No acordo de sócios, as decisões passaram a ser tomadas por maioria do capital. Tiago pediu também que o contrato detalhasse as regras de saída dos sócios. “Formalidades”, disse. Diego leu as primeiras páginas.</p>
       <p>Nos primeiros meses, Tiago entregou o que prometeu. Renegociou o contrato do galpão, abriu uma conversa direta com a diretoria da Lume e resolveu em uma semana um problema que Beatriz carregava havia meses. Beatriz, por sua vez, aproveitou a nova fase para publicar um Código de Conduta, em março, e lançar um canal de denúncias, três semanas atrás. Ninguém na empresa tinha motivo para desconfiar de Tiago. Nem os próprios sócios.</p>
       <p class="pull">Tiago nunca dizia que era errado. Dizia que era o preço de continuar no jogo.</p>
       <p>Foram cinco decisões. Em cada uma, o caminho certo tinha um custo alto, e Tiago tinha um atalho pronto, sempre em nome do comercial.</p>
     </div>
-    <div class="cards">
-      <article class="card"><h3><span aria-hidden="true">👩‍💼</span>Beatriz Nakamura</h3><p><strong>37,5%</strong> do capital. Conduz clientes, galpão, entregadores e finanças.</p></article>
-      <article class="card"><h3><span aria-hidden="true">👨‍💻</span>Diego Rocha</h3><p><strong>37,5%</strong> do capital. Dono do algoritmo, que só ele conhece por inteiro.</p></article>
-      <article class="card"><h3><span aria-hidden="true">🤝</span>Tiago Medeiros</h3><p><strong>25%</strong> do capital. Diretor de Expansão e Relacionamento. Ajuda de verdade, e sempre com um argumento pronto.</p></article>
-    </div>
-    <div class="prose">
-      <div class="task" style="margin-top:2rem"><strong>Como se decide na Ligeira.</strong> Por maioria do capital. Beatriz e Diego juntos somam 75%. Tiago, com qualquer um dos dois, soma 62,5%. Na prática, Beatriz precisa convencer o Diego. Quando ela não consegue, quem convence primeiro é o Tiago.</div>
+  </section>
+
+  <section class="section">
+    <div class="prose"><h2>Os sócios</h2></div>
+    <div class="socios3">
+      <div class="socio3"><img src="img/beatriz.jpg" alt=""><span class="pct">37,5%</span><b>Beatriz Nakamura</b><p>Conduz clientes, galpão, entregadores e finanças.</p></div>
+      <div class="socio3"><img src="img/diego.jpg" alt=""><span class="pct">37,5%</span><b>Diego Rocha</b><p>Dono do algoritmo, que só ele conhece por inteiro.</p></div>
+      <div class="socio3"><img src="img/tiago.jpg" alt=""><span class="pct">25%</span><b>Tiago Medeiros</b><p>Diretor de Expansão e Relacionamento. Ajuda de verdade, e sempre com um argumento pronto.</p></div>
     </div>
   </section>
 
+  <section class="section">
+    <div class="prose"><h2>Como se decide na Ligeira</h2><p>Por maioria do capital.</p>
+    <div class="capbar" role="img" aria-label="Capital da Ligeira. Beatriz 37,5%, Diego 37,5%, Tiago 25%">
+      <i class="b" style="flex:37.5">Beatriz · 37,5%</i>
+      <i class="d" style="flex:37.5">Diego · 37,5%</i>
+      <i class="t" style="flex:25">Tiago · 25%</i>
+    </div>
+    <div class="combos">
+      <div class="combo"><span>Beatriz e Diego juntos</span><b>75%</b></div>
+      <div class="combo"><span>Tiago com qualquer um dos dois</span><b>62,5%</b></div>
+    </div>
+      <p class="pull">Na prática, Beatriz precisa convencer o Diego. Quando ela não consegue, quem convence primeiro é o Tiago.</p>
+    </div>
+  </section>
+
+  <div style="display:none">
   <section class="section" id="grupo-2">
     <div class="round">
       <div class="round-head">
@@ -584,10 +630,7 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
     </div>
   </section>
 
-  <section class="section">
-    <div class="prose"><p class="note">Ligeira, Lume, Enxaimel Frotas e todos os personagens são fictícios. Os valores em reais, os percentuais e os prazos deste capítulo são ilustrativos. A lei de igualdade salarial citada no capítulo é real, a Lei 14.611/2023.</p></div>
-  </section>
-
+  </div>
 </div>
 
 <!-- =================== CAPÍTULO 3 =================== -->
