@@ -372,6 +372,8 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 .combo span{font-size:.92rem;color:var(--ink-2)}
 .combo b{font-family:var(--serif);font-size:1.8rem;font-weight:750;line-height:1}
 @media (max-width:760px){.socios3{grid-template-columns:1fr}.combos{grid-template-columns:1fr}.c2tiago{flex-direction:column}.capbar{font-size:.78rem}}
+#dilema-area .dcard{margin-left:0 !important;background:#fff;border-top:6px solid var(--yellow);border-radius:4px;padding:1.8rem 2rem;margin-top:1.5rem;box-shadow:0 18px 40px -22px rgba(27,37,48,.5);animation:carta .7s cubic-bezier(.2,.7,.2,1) both}
+@media (max-width:640px){#dilema-area .dcard{padding:1.3rem 1.1rem}}
 </style>
 </head>
 <body>
@@ -606,31 +608,27 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
     </div>
   </section>
 
-  <div style="display:none">
   <section class="section" id="grupo-2">
     <div class="round">
       <div class="round-head">
-        <h2>Qual é o seu grupo?</h2>
-        <div class="task">Cada grupo trabalha num único aparelho. Escolham o número do grupo: ele define o dilema que vocês vão enfrentar.</div>
+        <h2>Grupo</h2>
       </div>
       <div class="groups" id="groups2"></div>
       <p class="gnow" id="gnow2" aria-live="polite"></p>
     </div>
   </section>
 
-  <div id="dilema-locked" class="round"><p class="locked-msg">Escolham o grupo acima para liberar o envelope.</p></div>
+  <div id="dilema-locked"></div>
   <section class="section hidden" id="dilema">
     <div class="round">
       <div class="round-head">
-        <h2 id="dilema-h2">O dilema do seu grupo</h2>
-        <div class="task">Abram o envelope só quando o professor autorizar. Leiam com atenção e respondam às duas perguntas do fim. Decidir é obrigatório: não decidir também é decidir, e, nesse caso, quem já tem uma proposta pronta é o Tiago. Depois, contem à turma o que aconteceu no grupo e o que vocês decidiram.</div>
+        <h2 id="dilema-h2">O dilema</h2>
       </div>
       <div class="envelopes" id="envelopes2"></div>
       <div id="dilema-area" class="hidden"></div>
     </div>
   </section>
 
-  </div>
 </div>
 
 <!-- =================== CAPÍTULO 3 =================== -->
@@ -1287,7 +1285,7 @@ function renderGroups2(){
     group2=n; try{ localStorage.setItem(BASE2+"-grupo", String(n)); }catch(e){}
     load2(); renderDilema(); renderGroups2();
   }));
-  document.getElementById("gnow2").textContent = group2 ? `Vocês estão trabalhando como Grupo ${group2}.` : "";
+  document.getElementById("gnow2").textContent = "";
   document.getElementById("dilema").classList.toggle("hidden", !group2);
   document.getElementById("dilema-locked").classList.toggle("hidden", !!group2);
 }
@@ -1297,21 +1295,34 @@ function renderDilema(){
   const area = document.getElementById("dilema-area");
   if(!group2){ env.innerHTML=""; area.classList.add("hidden"); return; }
   const d = dilemaDoGrupo();
-  document.getElementById("dilema-h2").textContent = `Dilema do Grupo ${group2}`;
-  env.innerHTML = `<button type="button" class="env ${st2.open?"chosen":""}" id="env2-btn" ${st2.open?"disabled":""}>
-    <strong>Envelope do Grupo ${group2}</strong><span>${st2.open?"Envelope aberto":"Toque para abrir"}</span></button>`;
+  env.innerHTML = `<button type="button" class="env2 ${st2.open?"open":""}" id="env2-btn" ${st2.open?"disabled":""} aria-label="Envelope do Grupo ${group2}">
+      <span class="flap" aria-hidden="true"></span>
+      <span class="seal" aria-hidden="true">${group2}</span>
+      <span class="lbl">Grupo ${group2}</span>
+    </button>
+    <div class="envlock hidden" id="envlock2">
+      <label for="env2-pw">Senha</label>
+      <input id="env2-pw" type="password" autocomplete="off" autocapitalize="none">
+      <button class="btn" type="button" id="env2-ok">Abrir</button>
+      <span class="err" id="env2-err" role="alert"></span>
+    </div>`;
   if(!st2.open){
     area.classList.add("hidden");
-    document.getElementById("env2-btn").addEventListener("click",()=>{ st2.open=true; save2(); renderDilema(); });
+    const lk=document.getElementById("envlock2"), pw=document.getElementById("env2-pw"), er=document.getElementById("env2-err");
+    document.getElementById("env2-btn").addEventListener("click",()=>{ lk.classList.toggle("hidden"); if(!lk.classList.contains("hidden")) pw.focus(); });
+    const go = async ()=>{
+      const v = pw.value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+      if(await sha("ligeira:"+v)!==ENV_HASH){ er.textContent="Senha incorreta."; pw.select(); return; }
+      st2.open=true; save2(); renderDilema();
+    };
+    document.getElementById("env2-ok").addEventListener("click", go);
+    pw.addEventListener("keydown", e=>{ if(e.key==="Enter") go(); });
     return;
   }
   area.classList.remove("hidden");
-  area.innerHTML = `<article class="dilema">
+  area.innerHTML = `<article class="dilema dcard">
     <h3 class="dt">${d.titulo}</h3>
     ${d.ctx.map(p=>`<p>${p}</p>`).join("")}
-    <div class="gq"><h4>Para o grupo responder</h4>
-      <ol><li>Que valor está mais em evidência, sendo testado nesta situação?</li><li>O que deve ser feito?</li></ol>
-    </div>
   </article>`;
 }
 function renderAula2(){ renderGroups2(); renderDilema(); }
