@@ -334,6 +334,26 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
 .envlock input{font:inherit;padding:.6rem .8rem;border:2px solid var(--ink);border-radius:4px;min-width:12rem;background:#fff}
 .envlock .err{color:#B3261E;font-size:.9rem}
 @media (max-width:640px){.quad{min-height:12rem;padding:.6rem}.qname{font-size:.8rem}.chip{font-size:.85rem;padding:.4rem .7rem}}
+/* matriz com o visual da Confluência */
+.crit{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:0 0 1.6rem;font-family:var(--sans)}
+.crit>div{background:#fff;padding:1rem 1.3rem;border-left:3px solid var(--yellow)}
+.crit .k{font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#1B3A6B}
+.crit p{font-family:var(--serif);font-size:1.2rem;line-height:1.4;margin:.3rem 0 0}
+.grid{background:transparent;border:0;gap:10px}
+.quad{border-radius:8px;min-height:14rem;padding:1.3rem 1.4rem;transition:filter .15s ease}
+.quad[data-q="AP_BI"]{background:#F6E3B8}
+.quad[data-q="AP_AI"]{background:#C5E2F0}
+.quad[data-q="BP_BI"]{background:#DEDDE8}
+.quad[data-q="BP_AI"]{background:#D2E8D5}
+.quad:hover{filter:brightness(.97)}
+.quad.drop{outline:3px solid var(--ink);outline-offset:-3px}
+.qname{font-size:.85rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#1B3A6B}
+.axis-y b,.axis-x b{font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#1B3A6B}
+.axis-y small,.axis-x small{text-transform:capitalize}
+.card .qs{list-style:none;margin:.9rem 0 0;padding:.7rem 0 0;border-top:1px solid #D8DAD6;font-family:var(--sans);font-size:.88rem;line-height:1.4;color:#1B3A6B}
+.card .qs li{padding-left:1.1rem;position:relative;margin:.25rem 0}
+.card .qs li::before{content:"?";position:absolute;left:0;font-weight:700;color:var(--yellow)}
+@media (max-width:640px){.crit{grid-template-columns:1fr}.quad{min-height:10rem;padding:.8rem}.qname{font-size:.72rem}}
 </style>
 </head>
 <body>
@@ -443,6 +463,10 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
       <div class="round-head">
         <h2>A matriz de poder e interesse</h2>
       </div>
+      <div class="crit">
+        <div><span class="k">Poder</span><p>O quanto a Ligeira depende deles.</p></div>
+        <div><span class="k">Interesse</span><p>O quanto eles dependem da Ligeira.</p></div>
+      </div>
       <div class="matrix-wrap" data-matrix="r1"></div>
       <div class="row-actions">
         <button class="btn ghost" type="button" id="show-lock">Gabarito</button>
@@ -478,8 +502,7 @@ footer .sig{font-family:var(--serif);font-size:1.2rem;font-style:italic}
       <div class="envelopes" id="envelopes"></div>
       <div id="event-area" class="hidden">
         <article class="event" id="event-text"></article>
-        <h3>A matriz depois do evento</h3>
-        <div class="matrix-wrap" data-matrix="r3"></div>
+        <div class="matrix-wrap" data-matrix="r3" style="display:none"></div>
         <h3 style="display:none">As horas depois do evento</h3>
         <div class="hours" data-hours="r3h" style="display:none"></div>
         <div class="row-actions" style="display:none">
@@ -886,40 +909,40 @@ const QUADS = {
 const QUAD_ORDER = ["AP_BI","AP_AI","BP_BI","BP_AI"];
 
 const S = [
- {id:"lume", e:"🛍️", n:"Lume Varejo", q:"AP_BI",
+ {id:"lume", de:"da Lume", suj:"a Lume", pl:0, e:"🛍️", n:"Lume Varejo", q:"AP_BI",
   t:"Varejista de moda online nascida em Blumenau, cliente desde 2023. Responde por <strong>40% da receita</strong> da Ligeira. Trabalha com <strong>outras duas empresas de entrega</strong> e redistribui o volume todo mês conforme o desempenho de cada uma. Depois da semana de atrasos, seu diretor de logística avisou que poderia transferir o volume “em trinta dias”.",
   j:"40% da receita; ela troca de fornecedor em 30 dias."},
- {id:"lojistas", e:"🏪", n:"Lojistas e e-commerces médios", q:"BP_AI",
+ {id:"lojistas", de:"dos lojistas", suj:"os lojistas", pl:1, e:"🏪", n:"Lojistas e e-commerces médios", q:"BP_AI",
   t:"Cerca de <strong>25 clientes</strong>, de confecções de malha a cervejarias artesanais da região. Nenhum passa de <strong>4% da receita</strong>. Para a maioria, a Ligeira é a única empresa que faz entrega no mesmo dia por um preço que cabe na sua margem.",
   j:"Pouco peso individual; sem alternativa viável."},
- {id:"banco", e:"🏦", n:"Banco credor", q:"AP_BI",
+ {id:"banco", de:"do banco", suj:"o banco", pl:0, e:"🏦", n:"Banco credor", q:"AP_BI",
   t:"A Ligeira deve <strong>R$ 600 mil</strong> numa linha de capital de giro, usada para alugar o galpão e comprar equipamentos. A garantia são os <strong>imóveis pessoais</strong> dos dois sócios. No último pedido de renovação, o banco exigiu garantias adicionais. A Ligeira é uma cliente pequena na carteira de empresas da agência.",
   j:"Sem o crédito, a operação para; para o banco, a Ligeira é pequena."},
- {id:"beatriz", e:"👩‍💼", n:"Beatriz Nakamura", q:"AP_AI", ceo:true,
+ {id:"beatriz", de:"da Beatriz", suj:"a Beatriz", pl:0, e:"👩‍💼", n:"Beatriz Nakamura", q:"AP_AI", ceo:true,
   t:"Sócia com <strong>50%</strong> da empresa. Conduz clientes, galpão, entregadores e finanças. Todo o seu patrimônio está na Ligeira, e o seu apartamento é garantia do empréstimo.",
   j:"Conduz a operação; todo o patrimônio dela está em jogo."},
- {id:"diego", e:"👨‍💻", n:"Diego Rocha", q:"AP_AI",
+ {id:"diego", de:"do Diego", suj:"o Diego", pl:0, e:"👨‍💻", n:"Diego Rocha", q:"AP_AI",
   t:"Sócio com <strong>50%</strong> da empresa. Criou o algoritmo de roteirização, principal diferencial da Ligeira, que <strong>nunca foi documentado por completo</strong>: só ele conhece o código inteiro. Também deu o seu apartamento como garantia do empréstimo.",
   j:"Só ele domina o algoritmo; todo o patrimônio dele está em jogo."},
- {id:"entregadores", e:"🏍️", n:"Entregadores cadastrados", q:"AP_AI", debate:true,
+ {id:"entregadores", de:"dos entregadores", suj:"os entregadores", pl:1, e:"🏍️", n:"Entregadores cadastrados", q:"AP_AI", debate:true,
   t:"Cerca de <strong>220 pessoas</strong>, de moto, bicicleta e carro, espalhadas pelas cidades da região. Não são empregados e recebem por entrega. <strong>70%</strong> trabalham também para outras plataformas, e para <strong>40%</strong> a Ligeira é a principal fonte de renda. Sem eles, nenhuma entrega acontece. A cada mês, cerca de <strong>15%</strong> deixam de trabalhar para a empresa, e recrutar e treinar um novo entregador leva duas semanas.",
   j:"Sem eles não há entrega; as decisões da Ligeira mexem na renda deles. Em debate: para 60%, a Ligeira não é a renda principal."},
- {id:"galpao", e:"📦", n:"Equipe do galpão", q:"BP_AI",
+ {id:"galpao", de:"da equipe do galpão", suj:"a equipe do galpão", pl:0, e:"📦", n:"Equipe do galpão", q:"BP_AI",
   t:"<strong>12 empregados</strong> com carteira assinada, em dois turnos de triagem no galpão da Itoupava Norte, em Blumenau. A função pode ser aprendida em poucos dias. A maioria mora nos bairros vizinhos e em Gaspar e Indaial, e muitos estão no <strong>primeiro emprego formal</strong>. A indústria da região contrata o ano inteiro, e a Ligeira disputa gente com ela.",
   j:"Função fácil de ensinar, gente difícil de repor num mercado em que falta mão de obra; o emprego formal pesa na vida de cada um."},
- {id:"tech", e:"⚙️", n:"Equipe de tecnologia", q:"AP_BI",
+ {id:"tech", de:"da equipe de tecnologia", suj:"a equipe de tecnologia", pl:0, e:"⚙️", n:"Equipe de tecnologia", q:"AP_BI",
   t:"<strong>4 desenvolvedores</strong> que mantêm o aplicativo e o algoritmo. Recebem com frequência contatos de recrutadores das empresas de software de Blumenau e Joinville. No último ano, <strong>dois saíram</strong> para empresas maiores, com salários até <strong>40% mais altos</strong>, e a reposição levou quatro meses.",
   j:"Reposição de quatro meses; eles têm ofertas melhores no mercado."},
- {id:"frotas", e:"🚐", n:"Enxaimel Frotas", q:"AP_BI",
+ {id:"frotas", de:"da Enxaimel", suj:"a Enxaimel", pl:0, e:"🚐", n:"Enxaimel Frotas", q:"AP_BI",
   t:"Locadora que fornece <strong>6 vans</strong> para as entregas volumosas e para levar a carga do galpão às cidades da região. É uma das poucas locadoras do Vale que aluga sem exigir garantia adicional e aceita pagamento mensal, condição de que a Ligeira depende desde que saiu do aperto bancário. Sua carteira é dominada por grandes varejistas e indústrias, e a Ligeira é uma cliente pequena.",
   j:"Poucas alternativas nas condições de pagamento que a Ligeira sustenta; a Ligeira é cliente pequena."},
- {id:"prefeitura", e:"🏛️", n:"Prefeitura de Blumenau", q:"AP_BI",
+ {id:"prefeitura", de:"da prefeitura", suj:"a prefeitura", pl:0, e:"🏛️", n:"Prefeitura de Blumenau", q:"AP_BI",
   t:"Define as regras de carga e descarga, licencia o galpão e regula o serviço de motofrete. Para a prefeitura, a Ligeira é uma entre centenas de empresas de logística da cidade.",
   j:"Pode inviabilizar a operação; a Ligeira é uma entre centenas."},
- {id:"moradores", e:"🏘️", n:"Moradores do entorno do galpão", q:"BP_AI",
+ {id:"moradores", de:"dos moradores", suj:"os moradores", pl:1, e:"🏘️", n:"Moradores do entorno do galpão", q:"BP_AI",
   t:"Cerca de <strong>60 famílias</strong> nas ruas vizinhas. Convivem com caminhões de madrugada, motos estacionadas nas calçadas e barulho nas trocas de turno. No ano passado, fizeram um <strong>abaixo-assinado</strong> à prefeitura, que ainda não respondeu. Nenhum deles trabalha na Ligeira.",
   j:"Sem meios de pressão efetivos (ainda); a rotina deles depende do galpão."},
- {id:"associacao", e:"✊", n:"Associação de entregadores", q:"BP_AI", mover:true,
+ {id:"associacao", de:"da associação", suj:"a associação", pl:0, e:"✊", n:"Associação de entregadores", q:"BP_AI", mover:true,
   t:"Representa entregadores de várias plataformas da região e tem cerca de <strong>200 associados</strong>, dos quais <strong>30</strong> trabalham para a Ligeira. Em 2025, organizou uma paralisação de um dia que atrasou <strong>2 mil entregas</strong>.",
   j:"Poder episódico (a paralisação); interesse direto. Candidata a mudar de quadrante."}
 ];
@@ -959,7 +982,7 @@ const byId = id => S.find(s=>s.id===id);
 
 /* ---------- cartões ---------- */
 document.getElementById("cards").innerHTML = S.map(s=>`
-  <article class="card"><h3>${(s.id==="beatriz"||s.id==="diego")?`<img class="cardpic" src="img/${s.id}.jpg" alt="">`:`<span aria-hidden="true">${s.e}</span>`}${s.n}</h3><p>${s.t}</p></article>`).join("");
+  <article class="card"><h3>${(s.id==="beatriz"||s.id==="diego")?`<img class="cardpic" src="img/${s.id}.jpg" alt="">`:`<span aria-hidden="true">${s.e}</span>`}${s.n}</h3><p>${s.t}</p><ul class="qs"><li>Quanto a Ligeira depende ${s.de}?</li><li>Quanto ${s.suj} ${s.pl?"dependem":"depende"} da Ligeira?</li></ul></article>`).join("");
 
 /* ---------- matriz ---------- */
 function buildMatrix(key){
@@ -970,13 +993,13 @@ function buildMatrix(key){
     </div>
     <p class="status" aria-live="polite"></p>
     <div class="matrix">
-      <div class="axis-y"><small>baixo</small>Poder<small>alto</small></div>
+      <div class="axis-y"><small>baixo</small><b>Poder</b><small>alto</small></div>
       <div class="grid">
         ${QUAD_ORDER.map(q=>`<div class="quad" data-q="${q}" tabindex="0" role="button" aria-label="Posicionar em ${QUADS[q].name}">
           <div><span class="qname">${QUADS[q].name}</span></div>
           <div class="chips"></div></div>`).join("")}
       </div>
-      <div class="axis-x"><small>baixo</small>Interesse<small>alto</small></div>
+      <div class="axis-x"><small>baixo</small><b>Interesse</b><small>alto</small></div>
     </div>`;
   wrap.querySelectorAll("[data-q]").forEach(el=>{
     const q = el.dataset.q;
